@@ -1,0 +1,113 @@
+{
+  "analysis_date": "2026-10-14",
+  "publication_date": "2026-10-15",
+  "models": 215,
+  "target_nodes": 93359,
+  "source_audit_files": 215,
+  "local_path_replacements": {
+    "STAGE1_PROJECT": "external Stage1 dataset directory",
+    "IFC_SOURCES": "external original IFC directory"
+  },
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 57,
+      "sha256": "c6edf68f3ce0d42e6b6f71da6ab7575ea4afd22c7f9946a056a7e4288015f8f4"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 242,
+      "sha256": "4cc7c1ee118b506f87bd75d4c71ca8f176b8c49d67a98d592fc995e4abf5e66b"
+    },
+    {
+      "path": "data_processing/semantics_Embed.py",
+      "bytes": 18632,
+      "sha256": "ad91ba899d96c5be92bbf67496dc3129e0f754278b34a7ccbb6fa02e9c672e3f"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/audit_dataset_semantics.py",
+      "bytes": 28949,
+      "sha256": "49c355b5fb7a22c52063a8e999a6a5abe1aa9850ba84948739d1b0c29df6366c"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/audit_single_model_semantics.py",
+      "bytes": 24713,
+      "sha256": "493a84753ccd10fb00b057af01ec7b242b3f22e0ab1379c8c960f3bc5da66e86"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_report_glossary.html",
+      "bytes": 10132,
+      "sha256": "423a64321c991bb598379dc74bc7755dc6a72529071d630ab24ee08b1cb4ace1"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/check_report_runtime.mjs",
+      "bytes": 3554,
+      "sha256": "2f2cbd62c590ec02f2931ee82980e3629d8be253bd36b9cf9ab07af6e527d5e3"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/current_semantic_statistics.json",
+      "bytes": 4968198,
+      "sha256": "56382f9cf6c38b051bfa425af05202bd409f72f963949c0912065663f8d083b1"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html",
+      "bytes": 9297196,
+      "sha256": "ba02423181942e30dae0c8f3ea7869037ab387195602e58ca538988e93485d20"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl.gz",
+      "bytes": 455864,
+      "sha256": "e4fad4f6b0668beb5632068374b3616b75563356477152ac92fabd53db2dab8d"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/original_ifc_statistics.json",
+      "bytes": 7575892,
+      "sha256": "19f49a83cde81bc048c24ff91fc3b880bff0fff3a6d5c3acb71d12f1d2e3f0ca"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/semantic_richness_distribution.png",
+      "bytes": 110936,
+      "sha256": "6a377d9bb74c76ae80c4c9a8b382a5cff0f4f732e2f4f600939f2b2adb56bd36"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_results/source_audits.zip",
+      "bytes": 11583279,
+      "sha256": "e2445ef4bc08e7d17e1275a3c12b890bc3a4d96d9ba214f5690f6cff0a03bf84"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_semantic_categories.html",
+      "bytes": 6008,
+      "sha256": "b0d5ae76a1a038c48a9f2c13cf263ba4fa2ecea3400b8806c75a85e54032b997"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/dataset_semantic_report.html",
+      "bytes": 33023,
+      "sha256": "cd02a6fd70415a715b631dbc595271b8dcf217b43e67ec20091d2b8889db6893"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html",
+      "bytes": 916956,
+      "sha256": "3c2cad165d071340bfa1cd1db4ac08d025202d15437d7198f42b4f173f819ec5"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.json",
+      "bytes": 1207639,
+      "sha256": "564531d8426414c8d29480b10f980a07dbf09646908dd571f247b280a47ac9dd"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/single_model_semantic_report.html",
+      "bytes": 23597,
+      "sha256": "3beea3ad55de1ddf60bce514b7e544386be435146476016d9dc6f7e1beefef21"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5979,
+      "sha256": "422b58f2da032a007dcb90ecde75a5df58baadbd6d33009ab592e6706ce908f2"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 130,
+      "sha256": "7c037082d1312c3e20904485d8a16023330fe6e92acd07f4b4b1ce2e9d3c548a"
+    }
+  ]
+}

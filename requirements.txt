@@ -1,0 +1,5 @@
+# Versions used for the published analysis (Python 3.14).
+numpy==2.4.3
+pandas==3.0.1
+matplotlib==3.10.8
+ifcopenshell==0.8.4.post1

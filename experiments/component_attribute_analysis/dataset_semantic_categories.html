@@ -1,0 +1,39 @@
+<p><strong>这些类别是本次分析按字段名称进行的初步归类，不是 IFC 官方规定的内容分类。</strong>未识别的名称统一落入“其他自定义属性”，因此这个名称更准确应理解为“未细分的其他属性（含软件参数）”。不同语言、带空格的名称和软件专用字段可能没有被归到最合适的一类。</p>
+<div class="tablebox"><table><thead><tr><th>表头</th><th>想描述什么</th><th>本次数据中实际出现的例子</th></tr></thead><tbody>
+<tr><td>名称与引用</td><td>构件叫什么，如何描述或引用其规格。</td><td>Name、LongName、Description、Pset_WallCommon.Reference。</td></tr>
+<tr><td>分类与用途</td><td>属于哪种类型，采用哪种组成或开启形式。</td><td>PredefinedType、CompositionType、OperationType、PartitioningType。</td></tr>
+<tr><td>尺寸与工程量</td><td>构件有多大，面积、体积、跨度等是多少，也包括部分角度参数。</td><td>OverallHeight、OverallWidth、Qto_ColumnBaseQuantities.Length、Qto_SlabBaseQuantities.NetVolume、Pset_BeamCommon.Span。</td></tr>
+<tr><td>材料与构造</td><td>材料名称和部分构造信息。</td><td>Material、Materials and Finishes.Structural Material。属性集名字含“钢筋”但仅有 Reference 时，该 Reference 仍归“名称与引用”。</td></tr>
+<tr><td>功能与布尔</td><td>一些常见的功能状态设置。</td><td>IsExternal、LoadBearing、ExtendToStructure。这里只匹配了部分字段名，并不是全部 true/false 字段都在此列。</td></tr>
+<tr><td>性能与安全</td><td>被规则识别到的热工、耐火、隔声等性能字段。</td><td>Pset_WallCommon.ThermalTransmittance、Pset_WindowCommon.FireRating。</td></tr>
+<tr><td>制造与管理</td><td>制造商、产品型号、序列号、生产和安装时间、保修与更换成本等字段。</td><td>Manufacturer、ModelReference、SerialNumber、ProductionYear、InstallationDate、WarrantyStartDate、ReplacementCost。下面说明这些字段的实际内容。</td></tr>
+<tr><td>其他自定义属性</td><td>未被上面规则识别的字段，混合了楼层、偏移、阶段、宿主、标记和软件专用细部参数。</td><td>Constraints.Level、Constraints.Sill Height、Phasing.Phase Created、Other.Host Id 等。它们有些本来应归尺寸、分类或管理，不能把这一列全当作额外的自定义语义。</td></tr>
+</tbody></table></div>
+<h3>制造与管理：字段存在，但实际内容是模板式文字</h3>
+<p>核对当前统计后，这一类共出现 12 种字段名，全部来自 model_217。它们的取值都是字段名本身，例如 Manufacturer="Manufacturer"。因此表中的非空覆盖率不能代表已经具备真实厂商、安装日期或保修信息。</p>
+<div class="tablebox"><table><thead><tr><th>实际字段名</th><th>原本想记录的内容</th><th>当前实际值</th></tr></thead><tbody>
+<tr><td>Manufacturer</td><td>制造商</td><td>"Manufacturer"</td></tr>
+<tr><td>ModelReference</td><td>产品型号或型号引用</td><td>"ModelReference"</td></tr>
+<tr><td>SerialNumber</td><td>序列号</td><td>"SerialNumber"</td></tr>
+<tr><td>ProductionYear</td><td>生产年份</td><td>"ProductionYear"</td></tr>
+<tr><td>InstallationDate</td><td>安装日期</td><td>"InstallationDate"</td></tr>
+<tr><td>ReplacementCost</td><td>更换成本</td><td>"ReplacementCost"</td></tr>
+<tr><td>WarrantyStartDate / WarrantyDescription</td><td>保修起始日期与说明</td><td>分别为 "WarrantyStartDate" / "WarrantyDescription"</td></tr>
+<tr><td>WarrantyDurationLabor / WarrantyDurationParts</td><td>人工和零部件的保修期限</td><td>分别重复这两个字段名</td></tr>
+<tr><td>WarrantyGuarantorLabor / WarrantyGuarantorParts</td><td>人工和零部件的保修责任方</td><td>分别重复这两个字段名</td></tr>
+</tbody></table></div>
+<p>之前“去掉占位值”的统计只识别 NOTDEFINED、UNKNOWN 等明确未定义词，并没有排除这里的字段名重复文字。因此“非空”与“剩余字段”仍不能直接当作真实有效信息量。</p>
+<h3>“其他自定义属性”中的真实例子</h3>
+<div class="tablebox"><table><thead><tr><th>构件</th><th>完整字段名</th><th>实际值示例</th><th>按字段名理解的含义</th></tr></thead><tbody>
+<tr><td>墙</td><td>Constraints.Base Constraint</td><td>"Level 2"</td><td>墙底部关联的标高/楼层约束。</td></tr>
+<tr><td>墙</td><td>Constraints.Room Bounding</td><td>true</td><td>用于房间边界的设置。</td></tr>
+<tr><td>窗</td><td>Constraints.Sill Height</td><td>2200</td><td>窗台高度；本质是尺寸信息，但现有规则未识别这个完整名称。</td></tr>
+<tr><td>门</td><td>Other.Host Id</td><td>"Basic Wall: Generic - 100 mm"</td><td>宿主构件信息；这条实际填的是墙类型名称，并非纯数字编号。</td></tr>
+<tr><td>柱</td><td>Other.Family and Type</td><td>"Columns_Rectangular: 300x300mm"</td><td>族和类型的文字描述。</td></tr>
+<tr><td>窗</td><td>Phasing.Phase Created</td><td>"New Construction"</td><td>构件的创建阶段。</td></tr>
+<tr><td>门</td><td>Identity Data.Mark</td><td>"11"</td><td>构件标记。</td></tr>
+<tr><td>空间</td><td>Dimensions.Unbounded Height</td><td>2950</td><td>空间高度相关参数；本质是尺寸信息。</td></tr>
+<tr><td>门</td><td>AC_Equantity_Door_26.Closer Width</td><td>38</td><td>Archicad 门对象中的闭门器宽度参数。</td></tr>
+<tr><td>墙</td><td>Pset_WallCommon.Status</td><td>"NEW" / "EXISTING"</td><td>状态信息，位于 Pset_WallCommon 中；它说明“其他”也包含常见属性集中的字段。</td></tr>
+</tbody></table></div>
+<p>数值示例沿用原数据，单位需要查看对应来源模型，未在此做跨模型单位统一。分类比例只能描述本次规则识别到了多少记录；其他列低或“其他”列高，都需要结合这些具体字段判断。</p>

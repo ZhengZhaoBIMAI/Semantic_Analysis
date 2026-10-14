@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv*/
+node_modules/
+.env
+.env.*
+.packaging/
+data/
+data_extended/
+experiments/component_attribute_analysis/dataset_results/source_audits/
+experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl

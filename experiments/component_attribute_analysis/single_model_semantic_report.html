@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stage1 semantic 属性审计</title>
+<style>
+:root{--ink:#172b39;--muted:#5e7180;--line:#dce5ea;--bg:#f3f6f8;--teal:#087d82;--blue:#184e73;--amber:#976015}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.65 "Microsoft YaHei","Segoe UI",sans-serif;color:var(--ink)}
+main{max-width:1440px;margin:auto;padding:36px 32px 70px}header{margin-bottom:22px}.eyebrow{font-size:12px;letter-spacing:2px;color:var(--teal);font-weight:700}h1{font-size:30px;line-height:1.4;margin:7px 0 10px}h2{font-size:21px;margin:0 0 16px}h3{font-size:16px;margin:4px 0 9px}p{margin:7px 0}.muted{color:var(--muted)}code,.mono{font-family:Consolas,"Microsoft YaHei",monospace;font-size:12px;overflow-wrap:anywhere}code{background:#eef3f6;padding:2px 5px;border-radius:4px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}.metric{border:1px solid var(--line);background:white;border-radius:10px;padding:20px 22px}.metric strong{display:block;font-size:31px;line-height:1.25;color:var(--blue)}.metric span{display:block;color:var(--muted);margin-top:5px;font-size:13px}
+.panel{padding:25px;background:white;border:1px solid var(--line);border-radius:12px;margin:18px 0}.callout{border-left:4px solid var(--teal);background:#eff8f8;padding:15px 20px;margin-bottom:18px}.findings{display:grid;grid-template-columns:1fr 1fr;gap:16px}.finding{background:#f5f8fa;border-radius:7px;padding:17px}.finding .n{font-size:13px;color:var(--teal);font-weight:bold}
+.tablebox{overflow:auto;border:1px solid var(--line);border-radius:7px}table{border-collapse:collapse;width:100%;font-size:13px}th{text-align:left;background:#edf3f6;color:#365367;white-space:nowrap;padding:11px 12px;border-bottom:1px solid var(--line)}td{padding:10px 12px;border-bottom:1px solid #e8eef1;vertical-align:top}tr:last-child td{border-bottom:0}tr:hover td{background:#f8fbfc}.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.path{min-width:270px;max-width:470px}.value{min-width:220px;max-width:440px;overflow-wrap:anywhere}.sub{font-size:11px;color:var(--muted)}.bar{height:4px;border-radius:3px;background:#e2ecee;width:85px;margin-top:6px;margin-left:auto}.bar i{display:block;background:var(--teal);height:4px;border-radius:3px}.warn{color:var(--amber)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:26px 0 0}.tabs button{font-weight:600;background:#e7eef2;border:0;border-radius:7px 7px 0 0;padding:12px 22px;color:var(--muted)}.tabs button.active{background:white;color:var(--teal);border:1px solid var(--line);border-bottom:1px solid white}.tab{display:none;margin-top:0;border-top-left-radius:0}.tab.active{display:block}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0}input[type=search],select{border:1px solid #c7d6df;background:white;border-radius:5px;padding:9px 11px;font:inherit;color:var(--ink)}input[type=search]{min-width:290px}label{font-size:13px}button{font:inherit;cursor:pointer;border:1px solid #c7d6df;border-radius:5px;padding:8px 13px;background:white;color:var(--blue)}button:hover{background:#eef6f7}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7cc8d0;outline-offset:2px}.count{margin-left:auto;font-size:12px;color:var(--muted)}.hidden{display:none}pre{font:12px/1.7 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px;border-radius:7px;margin:12px 0}.nodegrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.notes li{margin-bottom:9px}.footnote{font-size:12px;color:var(--muted);margin-top:12px}details{margin:12px 0}summary{cursor:pointer;color:var(--blue)}.empty{text-align:center;color:var(--muted);padding:30px}.list{line-height:1.8}.source{word-break:break-all;font-family:Consolas,monospace;font-size:12px}
+@media(max-width:950px){main{padding:22px 16px}.metrics{grid-template-columns:1fr 1fr}.findings,.nodegrid{grid-template-columns:1fr}.panel{padding:18px}.count{margin-left:0}}
+@media print{body{background:white}main{padding:0;max-width:none}.tabs,.controls,button{display:none}.tab{display:block;break-before:page}.panel{break-inside:avoid;border:0;padding:12px 0}.tablebox{overflow:visible}.findings{display:block}.finding{margin-bottom:10px}h1{font-size:24px}}
+</style>
+</head>
+<body><main>
+<header><div class="eyebrow">STAGE1 EXPERIMENT / SEMANTIC AUDIT</div>
+<h1 id="title">目标构件 semantic 属性审计</h1><p class="muted" id="subtitle"></p></header>
+<div class="callout"><strong>判断：当前 semantic 能表达基本类别、类型规格和部分功能，精细构造信息仍不足。</strong><p>最直接的改进是补齐 IFC 类型继承属性，再清理重复 Reference 和实例名称中的编号。是否足以支持某项预测任务，还需用下游实验验证。</p></div>
+<section class="metrics" id="metrics"></section>
+<section class="panel"><h2>哪些信息真的进入了属性文本</h2>
+<div class="findings" id="findings"></div>
+<p class="footnote">当前 CSV 的钢筋间距和环境影响属性集只有 Reference，没有相应的钢筋间距或环境指标数值。名称中的规格不等于已提取、带单位的数值属性。</p>
+<p class="footnote">“进入”指按当前代码重建的 embedding 输入文本。向量不是属性字典，不能保证每个字段都被无损编码。原有属性向量若曾复用，其历史完整输入无法仅凭向量确认。</p></section>
+<section class="panel"><h2>各类构件统计</h2><div class="tablebox"><table><thead><tr><th>构件类别</th><th class="num">构件数</th><th class="num">非空属性路径数</th><th class="num">每个构件属性数<br>最少 / 中位 / 最多</th><th class="num">值恒定的路径数</th><th class="num">去除 Name 后<br>属性组合数</th></tr></thead><tbody id="summary"></tbody></table></div>
+<p class="footnote">属性路径数按 Pset 子属性展开后计算，是该类的并集，包含 Name、重复 Reference 和恒定值。组合数只移除 Name，其他字段和缺失差异均保留。它衡量本模型中的区分程度，不能直接代表跨模型的有效性。</p></section>
+<nav class="tabs" aria-label="审计内容">
+<button data-tab="current" class="active">当前 semantic 属性明细</button><button data-tab="original">原始 IFC 对照</button><button data-tab="node">查看单个构件</button><button data-tab="method">统计口径与改进建议</button>
+</nav>
+<section class="panel tab active" id="current"><h2>属性目录与覆盖率</h2><p class="muted">可查看每个字段的含义、非空覆盖率、不同取值数，以及实际值示例。</p>
+<div class="controls"><select id="classFilter" aria-label="按构件类别筛选"></select><input type="search" id="fieldSearch" placeholder="搜索属性名、含义或值" aria-label="搜索属性"><label><input type="checkbox" id="showIgnored"> 显示被编码流程排除的字段</label><button id="exportCurrent">导出当前筛选 CSV</button><span class="count" id="fieldCount"></span></div>
+<div class="tablebox"><table><thead><tr><th>构件</th><th>完整属性路径 / 含义</th><th>分组</th><th class="num">有值 / 总数</th><th class="num">覆盖率</th><th class="num">不同值数</th><th>常见值（次数）</th><th>进入属性文本</th></tr></thead><tbody id="fields"></tbody></table></div>
+<details><summary>CSV 中全部为空的列</summary><p id="emptyColumns" class="mono list"></p></details>
+</section>
+<section class="panel tab" id="original"><h2>原始 IFC 中有、当前 semantic 未保留的信息</h2><p class="muted" id="ifcIntro"></p>
+<div id="thermal"></div><div class="controls"><select id="originalClass" aria-label="原始 IFC 构件类别"></select><input type="search" id="originalSearch" placeholder="搜索原始属性" aria-label="搜索原始 IFC 属性"><label><input type="checkbox" id="sourceAll"> 显示所有原始属性</label><button id="exportOriginal">导出当前筛选 CSV</button><span class="count" id="sourceCount"></span></div>
+<div class="tablebox"><table><thead><tr><th>构件</th><th>原始属性路径 / 来源</th><th class="num">源文件有值</th><th class="num">当前缺少</th><th class="num">同字段值不同</th><th>示例值（次数） / 说明</th></tr></thead><tbody id="originalFields"></tbody></table></div>
+<p class="footnote">“当前缺少”按非空属性路径核对，不等于该含义完全丢失。Material.Name 对照 Material，Type.OperationType、Type.PartitioningType 和 Type.PredefinedType 对照相应实例字段。ObjectType 和 Type.Name 常已部分出现在 Name / Reference 中。空间关系独立于节点属性。数值比较允许已有提取器的 3 位小数舍入。</p>
+</section>
+<section class="panel tab" id="node"><h2>查看一个构件的完整 semantic 输入</h2><div class="controls"><select id="nodeClass" aria-label="单个构件类别"></select><select id="nodeSelect" aria-label="选择构件实例"></select></div><p id="nodeInfo" class="mono"></p><div class="nodegrid"><div><h3>结构化属性（当前代码重建）</h3><pre id="nodeProperties"></pre></div><div><h3>当前代码生成的 embedding 输入文本</h3><pre id="nodeText"></pre><p class="footnote">类别另由 one-hot 表达。GUID、node_id、Tag、has_geometry 等不进入此属性文本。文本的键名包含 Pset 名称，因此仍可能带有构件类别线索。</p></div></div></section>
+<section class="panel tab" id="method"><h2>统计口径与改进建议</h2>
+<h3>统计口径</h3><ul class="notes">
+<li>样本是 Stage1 图中的目标节点，不是原始 IFC 中所有建筑对象。以 node_index.csv 的 node_type 分类，并核对 GUID 和节点编号。IfcWallStandardCase 等映射以图节点类别为准。</li>
+<li>属性输入由 semantics_Embed.py 的 drop_ignored_property_columns 与 combine_properties 原样重建；逐层展开 Pset / Qto JSON 统计，不把整个属性集算作一个细节。</li>
+<li>覆盖率 = 本类该属性有实际值的构件数 / 本类节点总数。None、空字符串、NaN、空容器不算实际值；false 和 0 是有效值。NOTDEFINED 为非空占位值，明细会保留，需结合含义判断其信息量。</li>
+<li>按当前默认阈值检查输入长度，并核对已有 semantic_embedding 的 1007 维、7 维 one-hot、GUID 对齐和有限数值。未重新调用 embedding API，未改动模型数据或训练配置。</li>
+<li>原始 IFC 对照包含实例基础属性、实例与类型继承属性、部分类型定义、材料定义和空间容器信息，不覆盖 IFC 几何表示内部的全部参数或所有关系。</li>
+<li>这是一个模型的案例分析。它适合定位当前提取链的具体遗漏，不能据此断言其他模型具有相同覆盖率。</li></ul>
+<h3>建议的改进顺序</h3><ol class="notes">
+<li><strong>补齐类型继承与专用定义。</strong> 合并实例和类型的属性，实例值优先。门扇等 IfcDoorPanelProperties 也应规范化，避免把实例名变成大量不同的字段。保留来源，记录重名冲突。</li>
+<li><strong>去重和规范命名。</strong> 对重复 Reference 去重。拆分 Family / Type / 实例编号，做去掉 Name 编号的消融实验；不直接删除具有实际类别或规格含义的名称。</li>
+<li><strong>按任务补充显式数值。</strong> 墙厚、板厚、截面宽高、工程量等需要源文件支持或几何计算，并记录单位和来源。名称中的 “100mm” 可以作为线索，不能当作已提取且验证的数值字段。</li>
+<li><strong>保留结构化属性通道。</strong> 对尺寸、承重、外部性、耐火等级等关键字段保留可解释的数值/类别特征，与文本 embedding 对照消融。维度增加本身不意味着信息增加。</li>
+<li><strong>扩展到多模型复核。</strong> 在不同导出软件和不同模型上核对覆盖率、类型继承收益、跨模型同义字段和单位一致性，再判断哪些属性可作为稳定特征。</li></ol>
+<h3>本模型源文件的限制</h3><p id="sourceLimits"></p>
+<details><summary>数据来源与复现</summary><div id="sources"></div><pre id="command"></pre></details>
+<details><summary>验证结果与编码配置</summary><pre id="validation"></pre></details>
+</section>
+<p class="footnote" id="footer"></p>
+</main>
+<script id="audit-data" type="application/json">__AUDIT_DATA__</script>
+<script>
+const D=JSON.parse(document.getElementById('audit-data').textContent);
+const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct=v=>(100*v).toFixed(1)+'%', fmt=v=>typeof v==='number'?(Number.isInteger(v)?v.toLocaleString('en-US'):Number(v.toPrecision(6)).toString()):typeof v==='object'?JSON.stringify(v):String(v);
+const tops=r=>r.top_values.map(x=>`${esc(fmt(x.value))} <span class="sub">(${x.count})</span>`).join('<br>');
+const labels=Object.fromEntries(D.summary.map(s=>[s.component_type,s.label]));
+$('title').textContent=`${D.model}：目标构件 semantic 属性审计`;
+$('subtitle').textContent=`${D.report_date} · ${D.total_nodes} 个图节点 · IFC 原始属性、当前 CSV 与 semantic 输入逐层核对`;
+const metrics=[[D.total_nodes,'图中目标构件'],[D.semantic_unique_leaf_path_count,'全模型非空属性路径（去重）'],[D.class_attribute_combination_count,'类别 × 属性组合'],['7 + 1000','类别 one-hot + 属性 embedding 维度']];
+$('metrics').innerHTML=metrics.map(([v,l])=>`<div class="metric"><strong>${v}</strong><span>${l}</span></div>`).join('');
+const walls=D.summary.find(s=>s.component_type==='IfcWall'), columns=D.summary.find(s=>s.component_type==='IfcColumn');
+const losses=D.original_ifc.type_pset_losses||[], thermal=losses.filter(r=>r.path.endsWith('.ThermalTransmittance'));
+$('findings').innerHTML=[
+['字段数不能代表独立信息量',`CSV 有 ${D.source_csv_column_count} 列，实际非空且进入属性文本的顶层字段有 ${D.active_semantic_top_level_columns.length} 个。展开后全模型共 ${D.semantic_unique_leaf_path_count} 条不同属性路径，每个构件实际只有 ${Math.min(...D.nodes.map(n=>n.semantic_leaf_count))}–${Math.max(...D.nodes.map(n=>n.semantic_leaf_count))} 项。`],
+['名称与重复引用占比较高',`${walls?`${walls.object_count} 面墙去除 Name 后只剩 ${walls.property_combinations_excluding_name} 种属性组合。`:''}${columns?`柱的 ${columns.semantic_distinct_leaf_paths} 条路径中，${columns.constant_leaf_paths} 条在本模型的已填值上恒定。`:''} 重复 Reference 和 NOTDEFINED 需单独理解。`],
+['类型继承信息有可确认的遗漏',thermal.length?thermal.map(r=>`${r.component_label}传热系数：源文件 ${r.non_empty_count}/${r.object_count} 有值，当前 ${r.semantic_nonempty_count}/${r.object_count} 有值。`).join(' '):'本模型未找到传热系数继承遗漏，其他原始属性见 IFC 对照。'],
+['材料组成信息有提取遗漏',D.original_ifc.material_representation_counts?.IfcMaterialConstituentSet?`原始 IFC 中 ${D.original_ifc.material_representation_counts.IfcMaterialConstituentSet} 个目标构件使用复合材料组成集，当前提取器没有处理该表示。墙、板、门窗的组成材料名称可补回；分层厚度仍需另找来源。`:'材料和构造细节请结合原始 IFC 对照，墙厚、板厚、柱截面等在当前语义表中未独立表达。']
+].map(([h,p])=>`<article class="finding"><h3>${h}</h3><p>${esc(p)}</p></article>`).join('');
+$('summary').innerHTML=D.summary.map(s=>`<tr><td><strong>${s.label}</strong><div class="sub">${s.component_type}</div></td><td class="num">${s.object_count}</td><td class="num">${s.semantic_distinct_leaf_paths}</td><td class="num">${s.per_object_leaf_min} / ${s.per_object_leaf_median} / ${s.per_object_leaf_max}</td><td class="num">${s.constant_leaf_paths}</td><td class="num">${s.property_combinations_excluding_name}</td></tr>`).join('');
+for(const id of ['classFilter','originalClass','nodeClass']){$(id).innerHTML=(id==='nodeClass'?'':'<option value="">全部构件</option>')+D.summary.map(s=>`<option value="${s.component_type}">${s.label} ${s.component_type} (${s.object_count})</option>`).join('');}
+$('emptyColumns').textContent=D.all_empty_columns.join('，');
+let currentRows=[],originalRows=[];
+function renderFields(){const kind=$('classFilter').value,q=$('fieldSearch').value.trim().toLowerCase();currentRows=D.catalog.filter(r=>(!kind||r.component_type===kind)&&($('showIgnored').checked||r.semantic_included)&&JSON.stringify(r).toLowerCase().includes(q));
+$('fieldCount').textContent=`${currentRows.length} 条类别 × 属性`;
+$('fields').innerHTML=currentRows.map(r=>`<tr><td>${r.component_label}</td><td class="path"><span class="mono">${esc(r.path)}</span><div class="sub">${esc(r.meaning)}${r.constant_in_this_class?' · 已填值恒定':''}</div></td><td>${r.group}</td><td class="num">${r.non_empty_count} / ${r.object_count}</td><td class="num">${pct(r.coverage)}<div class="bar"><i style="width:${100*r.coverage}%"></i></div></td><td class="num">${r.unique_values}</td><td class="value">${tops(r)}${r.min!==null?`<div class="sub">数值最小 / 中位 / 最大：${fmt(r.min)} / ${fmt(r.median)} / ${fmt(r.max)}</div>`:''}</td><td>${r.semantic_included?'是':'<span class="muted">排除</span>'}</td></tr>`).join('')||'<tr><td colspan="8" class="empty">没有匹配属性</td></tr>';}
+for(const id of ['classFilter','fieldSearch','showIgnored'])$(id).addEventListener('input',renderFields);
+const I=D.original_ifc;
+$('ifcIntro').textContent=I.available?`原始 ${I.schema} 文件已匹配全部 ${I.target_guids_matched} 个目标 GUID。下表默认列出未单列保留或源值与当前值不同的字段。`:'原始 IFC 不可用。';
+$('thermal').innerHTML=thermal.length?`<div class="tablebox"><table><thead><tr><th>可确认的继承遗漏</th><th class="num">原始 IFC 有值</th><th class="num">当前 CSV 有值</th><th>源值示例</th></tr></thead><tbody>${thermal.map(r=>`<tr><td>${r.component_label} ${r.path}</td><td class="num">${r.non_empty_count}/${r.object_count} (${pct(r.coverage)})</td><td class="num">${r.semantic_nonempty_count}/${r.object_count}</td><td>${tops(r)}</td></tr>`).join('')}</tbody></table></div>`:'';
+function renderOriginal(){const kind=$('originalClass').value,q=$('originalSearch').value.trim().toLowerCase();originalRows=(I.catalog||[]).filter(r=>(!kind||r.component_type===kind)&&($('sourceAll').checked||r.missing_from_semantic_count||r.different_value_count)&&JSON.stringify(r).toLowerCase().includes(q));
+$('sourceCount').textContent=`${originalRows.length} 条原始属性`;
+$('originalFields').innerHTML=originalRows.map(r=>`<tr><td>${r.component_label}</td><td class="path"><span class="mono">${esc(r.path)}</span><div class="sub">${esc(r.meaning)}<br>${esc(r.origin.join('，'))}</div></td><td class="num">${r.non_empty_count}/${r.object_count}</td><td class="num ${r.missing_from_semantic_count?'warn':''}">${r.missing_from_semantic_count}</td><td class="num">${r.different_value_count}</td><td class="value">${tops(r)}${r.different_value_count?`<div class="sub">当前值：${r.semantic_top_values.map(v=>esc(fmt(v.value))+' ('+v.count+')').join('，')}</div>`:''}<div class="sub">${esc(r.representation_note)}</div></td></tr>`).join('')||'<tr><td colspan="6" class="empty">没有匹配属性</td></tr>';}
+for(const id of ['originalClass','originalSearch','sourceAll'])$(id).addEventListener('input',renderOriginal);
+function renderNodeOptions(){const nodes=D.nodes.filter(n=>n.component_type===$('nodeClass').value);$('nodeSelect').innerHTML=nodes.map(n=>`<option value="${n.node_id}">node ${n.node_id} · ${esc(n.name)}</option>`).join('');renderNode();}
+function renderNode(){const n=D.nodes.find(n=>n.node_id===Number($('nodeSelect').value));if(!n)return;$('nodeInfo').textContent=`${n.component_type} · node_id=${n.node_id} · GUID=${n.guid} · ${n.semantic_leaf_count} 个非空叶子属性 · ${n.semantic_text_chars} 字符`;$('nodeProperties').textContent=JSON.stringify(n.semantic_properties,null,2);$('nodeText').textContent=n.semantic_text;}
+$('nodeClass').addEventListener('input',renderNodeOptions);$('nodeSelect').addEventListener('input',renderNode);
+function downloadCSV(rows,columns,name){const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const content='\ufeff'+[columns.map(c=>quote(c[0])).join(','),...rows.map(r=>columns.map(c=>quote(typeof c[1]==='function'?c[1](r):r[c[1]])).join(','))].join('\r\n');const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'}));a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('exportCurrent').onclick=()=>downloadCSV(currentRows,[['构件类别','component_type'],['完整属性路径','path'],['含义','meaning'],['分组','group'],['有值数量','non_empty_count'],['本类数量','object_count'],['覆盖率','coverage'],['不同值数','unique_values'],['数据类型','value_type'],['常见值',r=>JSON.stringify(r.top_values)],['数值最小','min'],['数值中位','median'],['数值最大','max'],['进入属性文本','semantic_included']],`${D.model}_semantic_fields.csv`);
+$('exportOriginal').onclick=()=>downloadCSV(originalRows,[['构件类别','component_type'],['原始属性路径','path'],['来源',r=>r.origin.join(';')],['原始有值数量','non_empty_count'],['本类数量','object_count'],['当前缺少数量','missing_from_semantic_count'],['值不同数量','different_value_count'],['对照路径','semantic_comparison_path'],['示例值',r=>JSON.stringify(r.top_values)],['说明','representation_note']],`${D.model}_ifc_comparison.csv`);
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button,.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');$(b.dataset.tab).classList.add('active');}));
+$('sourceLimits').textContent=I.available?`该 IFC 全文件包含 ${I.quantity_set_count} 个 IfcElementQuantity、${I.material_layer_count} 个 IfcMaterialLayer。${I.material_representation_counts.IfcMaterialConstituentSet||0} 个目标构件有复合材料组成集，可以补回组成材料名称，但该文件没有分层厚度定义。工程量和材料分层厚度不能仅靠修改现有属性提取补齐。源 IFC 中 7 类对象共有 ${Object.values(I.source_target_class_counts).reduce((a,b)=>a+b,0)} 个，其中 ${D.total_nodes} 个进入当前图；梁、板数量受目标节点筛选影响。属性长度值沿用 IFC 单位，本模型的 LENGTHUNIT 为 METRE。`:'仅分析当前 CSV，源 IFC 的属性可用性尚未验证。';
+$('sources').innerHTML=D.sources.map(s=>`<p class="source">${esc(s)}</p>`).join('');
+$('command').textContent=`py -3.14 -X utf8 experiments/component_attribute_analysis/audit_single_model_semantics.py --model ${D.model}`;
+$('validation').textContent=JSON.stringify({semantic_config:D.semantic_config,embedding_validation:D.embedding_validation,original_IFC_target_counts:I.source_target_class_counts,source_sha256:D.source_sha256},null,2);
+$('footer').textContent=`生成于 ${D.report_date}。报告保留完整属性名和实际值，可离线查看。JSON 明细与本报告保存在同一目录。`;
+renderFields();renderOriginal();renderNodeOptions();
+</script></body></html>
