@@ -15,9 +15,19 @@
       "sha256": "c6edf68f3ce0d42e6b6f71da6ab7575ea4afd22c7f9946a056a7e4288015f8f4"
     },
     {
+      "path": ".github/scripts/build_pages.py",
+      "bytes": 635,
+      "sha256": "cd58673d94b7dc0226060809c51982e33b6c7900dc402519ed3bb552862b5ffc"
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "bytes": 1002,
+      "sha256": "05f132057437d53906a7cbc46648f9d6672cbc7e0f48e6652398ee372c69a8c1"
+    },
+    {
       "path": ".gitignore",
-      "bytes": 242,
-      "sha256": "4cc7c1ee118b506f87bd75d4c71ca8f176b8c49d67a98d592fc995e4abf5e66b"
+      "bytes": 283,
+      "sha256": "d59d0e9844df522c1a8359ca0bd43c6945e7058590032d63605b889705fdf9f6"
     },
     {
       "path": "data_processing/semantics_Embed.py",
@@ -101,8 +111,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5979,
-      "sha256": "422b58f2da032a007dcb90ecde75a5df58baadbd6d33009ab592e6706ce908f2"
+      "bytes": 6697,
+      "sha256": "9c0e0428ceacc6659b4bc39cece79f76d84ba61ec421fd5568708a99c7311681"
     },
     {
       "path": "requirements.txt",

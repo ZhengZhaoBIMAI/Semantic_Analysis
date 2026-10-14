@@ -9,3 +9,6 @@ data/
 data_extended/
 experiments/component_attribute_analysis/dataset_results/source_audits/
 experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl
+
+# Generated GitHub Pages website
+_site/
