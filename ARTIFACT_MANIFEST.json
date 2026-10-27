@@ -16,13 +16,13 @@
     },
     {
       "path": ".github/scripts/build_pages.py",
-      "bytes": 1257,
-      "sha256": "238e2bea89e12e86153ca7f0360206f1242cd4f9c6e34078e9f5acf5ce6680b4"
+      "bytes": 2017,
+      "sha256": "2979e6f62f701d15a9190d9e1bbc9105c49eccfa878bb6678dad375bfdcbab81"
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 1149,
-      "sha256": "f6e4969ab218fb14cf5a4ee3b2a052c0e46d846a1743f5c0fa549390bdd89c50"
+      "bytes": 1219,
+      "sha256": "021394f01ec5793fa239dab883f767a1f7975d73d7acfff908ae64f45db55822"
     },
     {
       "path": ".gitignore",
@@ -50,6 +50,11 @@
       "sha256": "22dfcf79d51f0826111e232bd43f5a40591863539d062f3bcd463e8dbedc4ae2"
     },
     {
+      "path": "experiments/component_attribute_analysis/build_tabular_characteristics.py",
+      "bytes": 22063,
+      "sha256": "fce3861456a042f134297394adeab74b54b60fd7642d9165cce1be06401e77d4"
+    },
+    {
       "path": "experiments/component_attribute_analysis/dataset_report_glossary.html",
       "bytes": 10132,
       "sha256": "423a64321c991bb598379dc74bc7755dc6a72529071d630ab24ee08b1cb4ace1"
@@ -66,8 +71,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html",
-      "bytes": 9297334,
-      "sha256": "8b3a91e1b0e71c84c3d128a9e596ed6ac8f82b90e6f2db76f157459711db3955"
+      "bytes": 9297469,
+      "sha256": "2094e851b5287a333dc0a168af27b62b48dfef584d63ba242bc1941afa3a132d"
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl.gz",
@@ -96,8 +101,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_semantic_report.html",
-      "bytes": 33161,
-      "sha256": "704c5bebc84f08cd61206283ed4a5550986ee54e553d7e02737195c880f06edb"
+      "bytes": 33296,
+      "sha256": "e4eabd37710a0e718a17d118c643a8ced9de3cd216dd49ff753d010263133ded"
     },
     {
       "path": "experiments/component_attribute_analysis/export_focus_evidence.py",
@@ -156,8 +161,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_report.html",
-      "bytes": 846923,
-      "sha256": "70c48252bf91246bb1481261e8b2df79a277f6aa56f3888dc2b08f06a7e49514"
+      "bytes": 847058,
+      "sha256": "4f8fe661bc70f412ea40d298baa093b721d12c6226a32b6cf0033624f67d526e"
     },
     {
       "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_statistics.json",
@@ -166,8 +171,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/focus_semantic_report.html",
-      "bytes": 14713,
-      "sha256": "981556a1515e31ff69e7a5a7e56ade08c59d83e6d61e06b63dda1ae236acc430"
+      "bytes": 14848,
+      "sha256": "9265de53d79ae6e5a582e0ffed324896e4e0e616f4a3879e7cec539231eb4858"
     },
     {
       "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html",
@@ -185,9 +190,99 @@
       "sha256": "3beea3ad55de1ddf60bce514b7e544386be435146476016d9dc6f7e1beefef21"
     },
     {
+      "path": "experiments/component_attribute_analysis/tabular_characteristics_report.html",
+      "bytes": 7885,
+      "sha256": "a796703652dc81ac80cbde3d5023664c64c10267af8b88edff35e8d65b8b92fb"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/attribute_model_support.csv",
+      "bytes": 4605,
+      "sha256": "81be4ca283df6abc7ae144870edd0582976eff3ff4152c39d296441522704347"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/attribute_prevalence_by_class_en.png",
+      "bytes": 318688,
+      "sha256": "0cec95b8a4bfbb39ab76d8daa36a19ae5e86ed0e4627c743587871d78694d7d4"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/attribute_prevalence_by_class_en.svg",
+      "bytes": 60804,
+      "sha256": "fe3956502c341ec7e7b361f4efb09c8da027e4861b91a0bccccd56cac0d18981"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/attribute_prevalence_by_class_zh.png",
+      "bytes": 304795,
+      "sha256": "0046e8b6bb13310a7c1da7cd432a7e9699e42dc2c19b9adde30811f11afe38ca"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/attribute_prevalence_by_class_zh.svg",
+      "bytes": 61175,
+      "sha256": "7edfad4d3271681e8bfa768b4984cd136a6c93246e2c2104b4c7e5f7db006a24"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/figure_captions_en.txt",
+      "bytes": 2151,
+      "sha256": "b7219205ca626596d8c537f4865abb1a2ce1f8defd3701817077db4958ef6435"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_en.png",
+      "bytes": 377934,
+      "sha256": "e3aefbf648660a4c7108f1113113c36bb83426f8f4a70d82e129419197ef12a2"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_en.svg",
+      "bytes": 44501,
+      "sha256": "ccefad8a2a3a9ea8c47c1a2f6213a58ec43230a6f77347603cd90a6262c8fe07"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_report.html",
+      "bytes": 1419266,
+      "sha256": "a2d3385f58065214eb667780a2307633f31f8826559007f3739e851994f4fd99"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_statistics.json",
+      "bytes": 25969,
+      "sha256": "cb02ca39c5a278d8ce46b876e27e33422ecce52cf68408e7cbf880de8ac93bf6"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_summary.csv",
+      "bytes": 2046,
+      "sha256": "24a3b23aac9d4906e4299ec88212e7230de9e220a7c8fc074cf6bb1081e1a0fe"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_without_model6_en.png",
+      "bytes": 371353,
+      "sha256": "29e9f85e718d110cf5cbe207e5bb1276bbea20bad15fce9849a29c8b9374040e"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_without_model6_en.svg",
+      "bytes": 43787,
+      "sha256": "2fa426c77a2af036128ec78502849efb3271e94db77185c63fcb6dee619b5a6f"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_without_model6_zh.png",
+      "bytes": 370072,
+      "sha256": "a0eeb01b5e20f87d7cbf93f1dcaa6b9cd525e17f37fd0c3657d31309937b195c"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_without_model6_zh.svg",
+      "bytes": 44021,
+      "sha256": "b550c8ab01e05c71b206fa87d7617fd98e2d672aeda860623fab5695509d28fe"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_zh.png",
+      "bytes": 380000,
+      "sha256": "bd6ed75bb75be56663c3ae7709760bc73c55bc89fd8bd14553f69f9d3c6a0919"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/tabular_results/tabular_characteristics_zh.svg",
+      "bytes": 44876,
+      "sha256": "a2f21cceaef45ee719fc1221a786734a3719ae19d4b0a58b2ae0bb88f5226a66"
+    },
+    {
       "path": "README.md",
-      "bytes": 7912,
-      "sha256": "5e2f1557ebc43c337eb78dded7027800ce4cb61f278eca81ab73e1225fe06dc8"
+      "bytes": 8793,
+      "sha256": "574016c1b9c26af7f7d62dc543b156c8f69d856c7697e001ea800b8b8025a7f9"
     },
     {
       "path": "requirements.txt",

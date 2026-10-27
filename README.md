@@ -4,6 +4,8 @@
 
 ## 查看结果
 
+新增：[BIM 属性的表格结构特征配图](https://zhengzhaobimai.github.io/Semantic_Analysis/tabular_characteristics.html)，含稀疏性、构件属性数量分布和跨模型共享程度三个面板，以及排除 model_6 的对照。提供中英文 400 dpi PNG、SVG、英文图注、CSV 和 JSON。统计基于当前审计快照，尚未完成全面同义字段规范化，不能标为清洗后的最终 WP1 数据。
+
 在线查看：[综合报告](https://zhengzhaobimai.github.io/Semantic_Analysis/) · [字段数量与跨模型差异深入分析（新增四张图）](https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html)。
 
 下载或克隆仓库后，用浏览器打开下面的 HTML。报告内嵌图表和数据，可离线筛选，并导出 CSV。
@@ -16,6 +18,8 @@
 深入分析基于 2026-10-14 的同一数据快照，于 2026-10-27 计算。16→12 是两种计数规则下的中位数，不能解释为 25% 信息无效；按字段出现次数，原诊断规则剔除 16.75%，只去重复引用副本和明确占位则剔除 7.74%。
 
 复现新增分析：`python experiments/component_attribute_analysis/build_focus_analysis.py`。model_6 字段出现证据已随仓库提供；如需从外部 Stage1 数据重新导出，运行 `python experiments/component_attribute_analysis/export_focus_evidence.py --project-root "C:\path\Stage1_experiment"`。源 CSV 必须与已发布快照的 SHA-256 一致。
+
+复现表格结构配图：`python experiments/component_attribute_analysis/build_tabular_characteristics.py`。输出在 `experiments/component_attribute_analysis/tabular_results/`。非空比例分别以全局或各类别的字段并集为分母；箱线图使用构件级计数和标准 Tukey 定义；字段模型支持数按类别—属性组合计算。排除 model_6 后重新确定字段并集，保留固定原字段并集的对照数值。
 
 GitHub 的文件页面会展示 HTML 源码；在本地浏览器中打开下载的文件即可查看交互报告。
 

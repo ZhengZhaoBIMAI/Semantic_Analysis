@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BIM Semantic 的表格结构特征：论文配图</title>
+<style>
+:root{--ink:#203b49;--muted:#617784;--line:#dbe6ec;--bg:#f4f7f9;--blue:#247493}*{box-sizing:border-box}body{margin:0;font:16px/1.8 "Microsoft YaHei","Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}main{max-width:1120px;padding:32px 25px 64px;margin:auto}h1{font-size:29px;line-height:1.4}h2{font-size:23px;line-height:1.5}h3{font-size:18px}a{color:var(--blue);overflow-wrap:anywhere}.meta,.note{color:var(--muted);font-size:14px}section{background:white;padding:25px;border:1px solid var(--line);border-radius:7px;margin:24px 0}.figure{width:100%;height:auto;display:block}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}th{background:#edf3f6}li{margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f0f5f7;padding:16px;font:13px/1.8 Consolas,"Microsoft YaHei",monospace}nav{display:flex;gap:18px;flex-wrap:wrap}summary{cursor:pointer;color:var(--blue)}@media(max-width:680px){main{padding:20px 12px 45px}section{padding:17px 12px}h1{font-size:25px}h2{font-size:21px}}@media print{section{border:0;padding:5px 0}body{background:white}}
+</style></head><body><main>
+<header><nav><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/">综合报告</a><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html">深入分析</a><a href="#sensitivity">排除特殊模型</a><a href="#downloads">下载图表与数据</a></nav>
+<h1>BIM Semantic 的表格结构特征</h1><p class="meta">数据快照：2026-10-14 · 制图：2026-10-27 · 215 个模型 · 93,359 个构件</p>
+<p>用三项定量证据支撑属性级表示的设计动机：固定列表格的稀疏性、每个构件拥有不同数量的属性、属性在模型之间的低共享性。</p>
+<p><strong>统计阶段：</strong>以下是当前审计快照的描述统计，尚未全面统一同义字段，也未完成全部模板内容清理。它们不能标作“最终清洗后的 WP1 表格”。所有图使用非空字段口径，名称、引用和未定义占位文本仍会计入；0 和 false 保留。</p></header>
+
+<section><h2>主图：三个面板分别证明什么？</h2>
+__MAIN_FIGURE__
+<ol><li><strong>A：非空比例。</strong>全局字段展开后，非空单元格仅占 0.46%。按构件类别各自建表后，比例仍约为 0.79%–7.33%。因此稀疏并不只是把墙、门、窗混在一张表中造成的。每条的分母不同：全局使用全部字段并集，各类别使用本类别字段并集。</li>
+<li><strong>B：属性数量变化。</strong>每个箱体是该类全部构件的属性数量分布，不是先计算模型中位数。箱体覆盖中央 50%，中线为中位数，须按标准 1.5 倍四分位距规则延伸，圆点为须外观测。横轴使用对数坐标，刻度仍标实际属性数量，全部观测均被保留。</li>
+<li><strong>C：模型之间的共享程度。</strong>每个“构件类别＋属性名”组合统计一次。只要一个模型中有一个该类构件填了该属性，就算出现于该模型。全部 5,392 个组合中，4,141 个只出现在一个模型，占 76.8%。该图不把同一字段在多个构件上的重复出现计成多个字段。</li></ol>
+<p class="note">A 的“空白”可能来自不适用或未提供，不能直接解释为信息缺失或质量低。B 的箱线图异常点是统计上的须外点，不代表这些构件的数据错误。C 的稀有字段可能有用，也可能是尚未统一的同义写法。</p>
+<p><a href="tabular_characteristics_en.png" download>下载英文主图 PNG（400 dpi）</a> · <a href="tabular_characteristics_en.svg" download>下载英文主图 SVG</a> · <a href="tabular_characteristics_zh.png" download>下载中文主图 PNG</a></p>
+</section>
+
+<section id="sensitivity"><h2>敏感性检查：排除 model_6 后是否仍然成立？</h2>
+<p>model_6 包含 1,021 个构件，但贡献了大量局部字段。删除它后，对剩余 214 个模型、92,338 个构件<strong>重新确定字段并集</strong>，全局字段从 4,688 个变为 1,968 个。以下图使用与主图一致的坐标尺度和统计定义。</p>
+__SENSITIVITY_FIGURE__
+<p>重新确定字段后，全局非空比例约为 <strong>1.01%</strong>，即仍有约 <strong>98.99%</strong> 的结构空白；各类别非空比例约为 <strong>3.04%–9.38%</strong>。排除该模型后仍存在明显的结构稀疏，而具体程度受字段体系影响。</p>
+<p class="note">这里同时删除该模型的行和它独有的列，因此是“重新建立字段体系”的敏感性检查。若保持原来 4,688 列不变，则是另一种问题；完整 CSV/JSON 同时保存固定原字段体系时的非空比例，便于区分。</p>
+<div class="tablewrap"><table><thead><tr><th rowspan="2">统计范围</th><th colspan="3">全部模型</th><th colspan="3">排除 model_6 后</th></tr><tr><th>构件数 N</th><th>字段数 P</th><th>非空比例</th><th>构件数 N</th><th>字段数 P</th><th>非空比例</th></tr></thead><tbody>__STAT_ROWS__</tbody></table></div>
+</section>
+
+<section><h2>补充图：低共享性是否只出现在某一种构件？</h2>
+__PREVALENCE_FIGURE__
+<p>各面板纵轴均为该面板内的组合比例。M 是含该类构件的模型数，K 是类别—属性组合数。各类别的模型数不同，所以不能假设每种属性都有 215 个可出现的模型。</p>
+</section>
+
+<section><h2>用于论文时的准确表述</h2>
+<p>这组结果支持：当前异构 BIM 属性直接展开为固定列时，会形成稀疏表格；构件的属性数量不同，很多字段只由少数模型提供。这些观察为接收可变属性集合的编码方式提供设计动机。</p>
+<p>这些图没有比较不同编码器的准确率，也不能单独证明属性级 tokenization 更优。最终清洗、同义合并、类型共享属性补齐后，应按相同定义重新计算论文的最终数值。</p>
+<h3>统计公式与作图口径</h3><pre>非空比例 = 非空属性出现次数 / (该范围的构件数 N × 观察到的字段并集大小 P)
+每构件属性数 = 该构件中有值的末级 key–value 对数量
+字段模型支持数 = 含该类构件、且至少一个构件该字段有值的模型数量
+
+A：全局和各类别分别确定字段并集；不做平均比例的简单平均。
+B：构件等权；标准 Tukey 箱线图；横轴为 log2，不截断高值。
+C：类别—属性组合等权；同一字段在同一模型内出现多次，支持数仍只加 1。
+排除 model_6：重新计算行数、字段并集和支持数；三面板与主图使用相同坐标尺度。</pre>
+<p class="note">这是已观察数据的全体描述统计，不添加没有明确抽样含义的置信区间。输入文件的 SHA-256、完整分组数值和固定原字段体系的敏感性数据均保存在统计 JSON 中。</p>
+<details><summary>英文图注（可复制修改）</summary><pre>__EN_CAPTION__</pre></details>
+</section>
+
+<section id="downloads"><h2>下载与复现</h2><p>主图按约 190 mm 宽设计，图中文字约 8–10 pt；PNG 为 400 dpi，SVG 保留矢量文字、坐标和主体图形，箱线图中大量重叠的须外散点以栅格嵌入控制文件大小。</p>
+<ul>__DOWNLOADS__</ul>
+<pre>python experiments/component_attribute_analysis/build_tabular_characteristics.py</pre>
+<p>依赖使用仓库 requirements.txt 中的版本。中文制图需系统具有 Microsoft YaHei、Noto Sans CJK SC 或 SimHei；网页展示使用已生成图片，无需在浏览器安装 Python。</p>
+</section>
+</main></body></html>

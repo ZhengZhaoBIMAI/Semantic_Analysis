@@ -8,6 +8,7 @@ on:
       - 'experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html'
       - 'experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html'
       - 'experiments/component_attribute_analysis/focus_results/**'
+      - 'experiments/component_attribute_analysis/tabular_results/**'
       - '.github/scripts/build_pages.py'
       - '.github/workflows/pages.yml'
 
