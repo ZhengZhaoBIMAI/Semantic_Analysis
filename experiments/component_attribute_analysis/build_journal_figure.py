@@ -1,8 +1,8 @@
 """Build the English A/B figure requested for the model_6-excluded cohort.
 
 Uses the existing audited-count pipeline; only rendering and cohort selection
-change. Exports 180 mm-wide artwork, Arial 8–11 pt, RGB TIFF/PNG at 600 dpi,
-editable SVG, a separate caption, and a self-contained review page.
+change. Uses Elsevier's general artwork guidance: 190 mm full width, Arial,
+7 pt ordinary text, embedded-font vector PDF, and 1000 dpi TIFF fallback.
 """
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ import gzip
 import hashlib
 import html
 import json
+import shutil
 from pathlib import Path
 
 import matplotlib
@@ -26,7 +27,8 @@ from build_tabular_characteristics import LABELS, SOURCE, analyze, check_layout,
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "journal_results"
-INK, BLUE, GRAY, GRID = "#202020", "#286b89", "#777777", "#e6e6e6"
+PDF_OUT = HERE.parents[1] / "output" / "pdf"
+INK, BLUE, GRAY = "#202020", "#286b89", "#777777"
 
 
 def selected_data():
@@ -43,12 +45,15 @@ def selected_data():
     assert stats["model_count"] == 214 and stats["node_count"] == 92338
     assert stats["scopes"][0]["attributes"] == 1968
     assert not any(r["model"] == "model_6" for r in retained)
-    return {"snapshot_date": current["date"], "figure_date": "2026-10-27", "selected_cohort": "model_6 excluded",
+    return {"snapshot_date": current["date"], "figure_date": "2026-10-28", "selected_cohort": "model_6 excluded",
             "data_stage": "observed full paths before comprehensive synonym harmonization",
             "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
-            "figure_specification": {"panels": ["A", "B"], "language": "English", "width_mm": 180, "height_mm": 90,
-                                     "font": "Arial", "font_size_pt": [8, 11], "raster_dpi": 600,
-                                     "panel_b_scale": "linear", "vector": "SVG with editable text and vector marks"},
+            "figure_specification": {"publisher_guidance": "Elsevier general artwork guidance", "panels": ["A", "B"], "language": "English",
+                                     "width_mm": 190, "height_mm": 85, "font": "Arial", "ordinary_text_pt": 7, "panel_label_pt": 9,
+                                     "png_dpi": 600, "tiff_dpi": 1000, "panel_b_scale": "linear",
+                                     "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
+                                     "titles": "Panel headings omitted; figure title and statistical definitions are in a separate caption",
+                                     "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"},
             "statistics": stats}, retained
 
 
@@ -56,14 +61,15 @@ def draw(result, rows):
     available = {f.name for f in font_manager.fontManager.ttflist}
     if "Arial" not in available:
         raise RuntimeError("Arial is required to reproduce the journal artwork; install Arial and rerun.")
-    plt.rcParams.update({"font.family": "Arial", "font.size": 8.5, "axes.labelsize": 8.5,
-                         "xtick.labelsize": 8, "ytick.labelsize": 8.5, "axes.titlesize": 9,
+    plt.rcParams.update({"font.family": "Arial", "font.size": 7, "axes.labelsize": 7,
+                         "xtick.labelsize": 7, "ytick.labelsize": 7,
                          "text.color": INK, "axes.labelcolor": INK, "xtick.color": INK, "ytick.color": INK,
                          "axes.edgecolor": "#777777", "axes.linewidth": .6,
                          "axes.spines.top": False, "axes.spines.right": False, "axes.spines.left": False,
-                         "svg.fonttype": "none", "svg.hashsalt": "stage1-journal-ab-model6-excluded"})
-    fig, axes = plt.subplots(1, 2, figsize=(180 / 25.4, 90 / 25.4), layout="constrained")
-    fig.get_layout_engine().set(w_pad=3 / 72, h_pad=4 / 72, wspace=.10)
+                         "svg.fonttype": "none", "pdf.fonttype": 42, "pdf.use14corefonts": False,
+                         "svg.hashsalt": "stage1-journal-ab-model6-excluded"})
+    fig, axes = plt.subplots(1, 2, figsize=(190 / 25.4, 85 / 25.4), layout="constrained")
+    fig.get_layout_engine().set(w_pad=4 / 72, h_pad=4 / 72, wspace=.08)
     scopes = result["statistics"]["scopes"]
     labels = ["All objects" if s["scope"] == "ALL" else LABELS[s["scope"]][1] for s in scopes]
     y = np.arange(len(scopes))
@@ -71,10 +77,9 @@ def draw(result, rows):
     occupancy = [s["occupancy_percent"] for s in scopes]
     a.barh(y, occupancy, height=.56, color=BLUE, edgecolor="none")
     for position, value in zip(y, occupancy):
-        a.text(value + .13, position, f"{value:.2f}%", va="center", fontsize=8)
+        a.text(value + .13, position, f"{value:.2f}%", va="center", fontsize=7)
     a.set_xlim(0, 10.8); a.set_xticks([0, 2, 4, 6, 8, 10])
     a.set_xlabel("Non-empty cells (%)")
-    a.set_title("Attribute occupancy", loc="left", pad=11)
     boxes = []
     for scope in scopes:
         values = np.asarray([r["leaf_count"] for r in rows if scope["scope"] == "ALL" or r["component_type"] == scope["scope"]])
@@ -85,16 +90,15 @@ def draw(result, rows):
           boxprops={"facecolor": "#dbe8ee", "edgecolor": BLUE, "linewidth": .75},
           medianprops={"color": INK, "linewidth": 1.0}, whiskerprops={"color": GRAY, "linewidth": .65},
           capprops={"color": GRAY, "linewidth": .65},
-          flierprops={"marker": "o", "markersize": 1.6, "markeredgecolor": "none", "markerfacecolor": GRAY, "alpha": .24})
+          flierprops={"marker": "o", "markersize": 1.3, "markeredgecolor": "none", "markerfacecolor": GRAY, "alpha": .28})
     b.set_xlim(0, 112); b.set_xticks([0, 20, 40, 60, 80, 100])
     b.set_xlabel("Number of attributes per object")
-    b.set_title("Attribute-count distribution", loc="left", pad=11)
     for ax, panel in zip(axes, ["A", "B"]):
         ax.set_yticks(y, labels); ax.set_ylim(len(scopes) - .5, -.5)
-        ax.set_axisbelow(True); ax.xaxis.grid(color=GRID, linewidth=.5)
+        ax.grid(False)
         ax.tick_params(axis="y", length=0, pad=4)
         ax.tick_params(axis="x", length=3, width=.6)
-        ax.text(-.17, 1.055, panel, transform=ax.transAxes, ha="left", va="bottom", fontsize=11, fontweight="bold")
+        ax.text(-.13, 1.015, panel, transform=ax.transAxes, ha="left", va="bottom", fontsize=9, fontweight="bold")
     check_layout(fig)
     renderer = fig.canvas.get_renderer()
     all_texts = list(fig.texts)
@@ -106,26 +110,33 @@ def draw(result, rows):
         assert all(ord(char) < 128 for char in text.get_text()), text.get_text()
         box = text.get_window_extent(renderer)
         assert box.x0 >= -.5 and box.y0 >= -.5 and box.x1 <= fig.bbox.x1 + .5 and box.y1 <= fig.bbox.y1 + .5, f"Clipped: {text.get_text()}"
-    # Capture directly from the plot renderer as RGB, without an alpha channel.
-    fig.set_dpi(600)
-    fig.canvas.draw()
-    rgb = Image.fromarray(np.asarray(fig.canvas.buffer_rgba())[:, :, :3].copy())
-    rgb.save(OUT / "Fig1.png", dpi=(600, 600))
-    rgb.save(OUT / "Fig1.tif", compression="tiff_lzw", dpi=(600, 600))
-    fig.savefig(OUT / "Fig1.svg", format="svg", facecolor="white", metadata={"Date": "2026-10-27"})
+    # Vector master: editable text, embedded TrueType subsets, no rasterization.
+    PDF_OUT.mkdir(parents=True, exist_ok=True)
+    fig.savefig(PDF_OUT / "Fig1.pdf", format="pdf", facecolor="white",
+                metadata={"Title": "BIM attribute sparsity and variability", "Subject": "Model_6-excluded cohort; panels A and B"})
+    shutil.copyfile(PDF_OUT / "Fig1.pdf", OUT / "Fig1.pdf")
+    fig.savefig(OUT / "Fig1.svg", format="svg", facecolor="white", metadata={"Date": "2026-10-28"})
+    # Render each raster export directly at its target resolution as RGB.
+    for name, dpi in [("Fig1.png", 600), ("Fig1.tif", 1000)]:
+        fig.set_dpi(dpi)
+        fig.canvas.draw()
+        rgb = Image.fromarray(np.asarray(fig.canvas.buffer_rgba())[:, :, :3].copy())
+        options = {"compression": "tiff_lzw"} if name.endswith(".tif") else {}
+        rgb.save(OUT / name, dpi=(dpi, dpi), **options)
     svg = OUT / "Fig1.svg"
     svg.write_text("\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n", encoding="utf-8", newline="\n")
     plt.close(fig)
-    for path in [OUT / "Fig1.png", OUT / "Fig1.tif"]:
+    for name, dpi in [("Fig1.png", 600), ("Fig1.tif", 1000)]:
+        path = OUT / name
         with Image.open(path) as im:
-            assert im.mode == "RGB" and all(abs(float(v) - 600) < .1 for v in im.info["dpi"])
-            assert abs(im.width / 600 * 25.4 - 180) < .1 and abs(im.height / 600 * 25.4 - 90) < .1
+            assert im.mode == "RGB" and all(abs(float(v) - dpi) < .1 for v in im.info["dpi"])
+            assert abs(im.width / dpi * 25.4 - 190) < .1 and abs(im.height / dpi * 25.4 - 85) < .1
         assert path.stat().st_size < 10_000_000
 
 
 def caption(result):
     stats = result["statistics"]
-    return (f"Figure 1. Structural sparsity and attribute-count variability of BIM object semantics. "
+    return (f"Fig. 1. Structural sparsity and attribute-count variability of BIM object semantics. "
             f"The analysis includes {stats['node_count']:,} graph objects from {stats['model_count']} models after excluding model_6; "
             "attribute vocabularies are recomputed from the retained models. "
             "(A) Percentage of non-empty cells in a fixed-column representation. The All objects row uses the global union of 1,968 property paths; "
@@ -134,7 +145,9 @@ def caption(result):
             "(B) Object-level distributions of non-empty attribute counts on a linear scale. Boxes indicate the interquartile range; central lines indicate medians. "
             "Whiskers extend to the most extreme observations within 1.5 interquartile ranges from each box. Points indicate observations beyond the whiskers; "
             "overlapping points may coincide and do not denote data errors. Zero and false are counted as non-empty. "
-            "The figure describes observed full property paths before comprehensive synonym harmonization; it is not a semantic-quality or model-performance assessment.\n")
+            "The figure describes observed full property paths before comprehensive synonym harmonization; it is not a semantic-quality or model-performance assessment. "
+            "Class-specific object counts and vocabulary sizes (N, P) are: "
+            + "; ".join(f'{LABELS[s["scope"]][1]} ({s["objects"]:,}; {s["attributes"]:,})' for s in stats["scopes"][1:]) + ".\n")
 
 
 def export(result):
@@ -150,15 +163,16 @@ def export(result):
     (OUT / "figure_specification.txt").write_text(
         "Selected cohort: model_6 excluded; 214 models and 92,338 objects.\n"
         "Panels: A (occupancy) and B (attribute-count distribution); no panel C.\n"
-        "Artwork size: 180 x 90 mm; RGB; Arial 8-11 pt; white background.\n"
-        "Raster: 600 dpi PNG and LZW-compressed TIFF; no alpha channel; below 10 MB each.\n"
-        "Vector: SVG with editable text and vector marks; no embedded raster images.\n"
-        "Caption and cohort details are outside the artwork. B uses a linear scale.\n"
-        "Formatting reference: PLOS figure specifications (Arial 8-12 pt; TIFF; 300-600 dpi; separate captions).\n"
-        "https://journals.plos.org/plosone/s/figures\n"
-        "General vector/legibility reference: Nature figure guide. Journal-specific font sizes differ.\n"
-        "https://research-figure-guide.nature.com/figures/building-and-exporting-figure-panels/\n"
-        "No target journal was specified; check its final submission requirements.\n", encoding="utf-8", newline="\n")
+        "Artwork size: 190 x 85 mm; RGB; Arial 7 pt ordinary text; white background.\n"
+        "Panel labels: uppercase A/B, bold 9 pt; this is a layout choice, not a universal publisher rule.\n"
+        "No panel headings or background grids. Caption and denominators are outside the artwork. B uses a linear scale.\n"
+        "Preferred submission master: PDF with embedded TrueType font subsets and vector marks.\n"
+        "SVG retained for editing. Preview: 600 dpi PNG. Raster fallback: 1000 dpi LZW TIFF. RGB, no alpha, each below 10 MB.\n"
+        "Elsevier ordinary-text size guidance is approximately 7 pt at final size; a rule of thumb, not a mandatory size for every journal.\n"
+        "https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing\n"
+        "https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-overview\n"
+        "https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-formats-checklist\n"
+        "No specific Elsevier journal was named; final journal-specific requirements take precedence.\n", encoding="utf-8", newline="\n")
 
 
 def render(result):
@@ -182,7 +196,7 @@ def main():
     draw(result, rows)
     export(result)
     render(result)
-    print("PASS: model_6 excluded; 214 models; 92,338 objects; English A/B only; 180 x 90 mm; Arial; 600 dpi RGB PNG/TIFF; editable SVG.")
+    print("PASS: model_6 excluded; English A/B; Elsevier general style; 190 x 85 mm; Arial 7 pt / 9 pt panel labels; vector PDF; 600 dpi PNG; 1000 dpi TIFF.")
 
 
 if __name__ == "__main__":

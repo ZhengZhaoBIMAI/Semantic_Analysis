@@ -4,7 +4,7 @@
 
 ## 查看结果
 
-当前版本：[BIM 属性的表格结构特征配图](https://zhengzhaobimai.github.io/Semantic_Analysis/tabular_characteristics.html)。使用排除 model_6 后的 214 个模型、92,338 个构件，仅保留 A（非空比例）与 B（属性数量分布），图内全英文。按 180 × 90 mm 双栏尺寸、Arial 8–11 pt 制作，提供 600 dpi RGB PNG／LZW TIFF、可编辑 SVG、英文图注、CSV 和 JSON。统计基于当前审计快照，尚未完成全面同义字段规范化，不能标为清洗后的最终 WP1 数据。
+当前版本：[BIM 属性的表格结构特征配图](https://zhengzhaobimai.github.io/Semantic_Analysis/tabular_characteristics.html)。使用排除 model_6 后的 214 个模型、92,338 个构件，仅保留 A（非空比例）与 B（属性数量分布），图内全英文。按 Elsevier 通用指南整理为 190 × 85 mm，Arial 普通文字 7 pt、面板字母 9 pt，无图内标题和背景网格。提供嵌入字体的矢量 PDF、1000 dpi RGB LZW TIFF、600 dpi PNG、编辑用 SVG、英文图注、CSV 和 JSON。统计基于当前审计快照，尚未完成全面同义字段规范化，不能标为清洗后的最终 WP1 数据。
 
 在线查看：[综合报告](https://zhengzhaobimai.github.io/Semantic_Analysis/) · [字段数量与跨模型差异深入分析（新增四张图）](https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html)。
 
@@ -19,7 +19,7 @@
 
 复现新增分析：`python experiments/component_attribute_analysis/build_focus_analysis.py`。model_6 字段出现证据已随仓库提供；如需从外部 Stage1 数据重新导出，运行 `python experiments/component_attribute_analysis/export_focus_evidence.py --project-root "C:\path\Stage1_experiment"`。源 CSV 必须与已发布快照的 SHA-256 一致。
 
-复现当前英文双面板图：`python experiments/component_attribute_analysis/build_journal_figure.py`。输出在 `experiments/component_attribute_analysis/journal_results/`，需要系统安装 Arial。非空比例分别以排除 model_6 后全局或各类别的字段并集为分母；箱线图使用构件级计数、标准 Tukey 定义和线性坐标。图注独立于图稿。排版参照 [PLOS figure requirements](https://journals.plos.org/plosone/s/figures)，具体投稿时按目标期刊规定调整。早期三面板分析保留在 `tabular_results/`。
+复现当前英文双面板图：`python experiments/component_attribute_analysis/build_journal_figure.py`。输出在 `experiments/component_attribute_analysis/journal_results/`，PDF 主文件同时保存在 `output/pdf/Fig1.pdf`，需要系统安装 Arial。非空比例分别以排除 model_6 后全局或各类别的字段并集为分母；箱线图使用构件级计数、标准 Tukey 定义和线性坐标。图注独立于图稿并提供各类别 N/P 分母。排版参照 [Elsevier artwork sizing](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing) 和 [文件格式与字体说明](https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-overview)。7 pt 是出版社经验建议，9 pt 面板字母是本图的版式设置；具体投稿时按目标期刊规定调整。早期三面板分析保留在 `tabular_results/`。
 
 GitHub 的文件页面会展示 HTML 源码；在本地浏览器中打开下载的文件即可查看交互报告。
 

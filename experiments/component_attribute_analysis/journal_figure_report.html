@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BIM Semantic：英文期刊双面板图</title>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BIM Semantic：Elsevier 英文双面板图</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font:16px/1.8 "Microsoft YaHei","Segoe UI",sans-serif;color:#203b49;background:#f4f7f9}main{max-width:1120px;padding:30px 25px 60px;margin:auto}h1{font-size:28px;line-height:1.5}h2{font-size:22px}a{color:#246784;overflow-wrap:anywhere}nav{display:flex;gap:20px;flex-wrap:wrap}.meta,.note{font-size:14px;color:#60717d}section{padding:24px;background:white;border:1px solid #dbe5eb;border-radius:7px;margin:23px 0}.figure{width:100%;height:auto;display:block}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px;border-bottom:1px solid #dbe5eb;font-variant-numeric:tabular-nums}th{background:#edf3f6}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:16px;font:13px/1.8 Consolas,monospace}li{margin:8px 0}@media(max-width:680px){main{padding:18px 12px 40px}section{padding:16px 12px}h1{font-size:24px}}
 </style></head><body><main>
 <header><nav><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/">综合报告</a><a href="#caption">英文图注</a><a href="#downloads">下载文件</a></nav>
-<h1>BIM Semantic：英文期刊双面板图</h1>
+<h1>BIM Semantic：Elsevier 英文双面板图</h1>
 <p class="meta">已排除 model_6 · 214 个模型 · 92,338 个构件 · 全局字段并集 1,968 项</p>
-<p>当前版本只保留 A、B 两个面板，图内全部为英文。大标题、样本量和统计说明移入独立图注，B 图使用线性坐标。</p></header>
+<p>按 Elsevier 通用绘图指南整理，只保留 A、B 两个面板，图内全部为英文。图内没有标题或背景网格；面板解释、样本量和统计定义放在独立英文图注中。B 图采用线性坐标。</p></header>
 <section><h2>当前图稿</h2>__FIGURE__
-<p><a href="Fig1.png" download>PNG · 600 dpi</a>　<a href="Fig1.tif" download>TIFF · 600 dpi · RGB · LZW</a>　<a href="Fig1.svg" download>SVG · 可编辑文字和图形</a></p>
-<p class="note">点击图可查看原图。按 180 × 90 mm 的双栏版面设计，使用 Arial 8–11 pt；无图内总标题或图注，保留面板字母 A、B。尚未指定目标期刊，最终尺寸和字体可按该期刊要求调整。</p>
+<p><a href="Fig1.pdf" download>推荐投稿：矢量 PDF · 已嵌入字体</a>　<a href="Fig1.tif" download>TIFF · 1000 dpi · RGB · LZW</a>　<a href="Fig1.png" download>预览 PNG · 600 dpi</a>　<a href="Fig1.svg" download>编辑源文件 SVG</a></p>
+<p class="note">点击图可查看原图。尺寸 190 × 85 mm；Arial 普通文字 7 pt，A/B 为 9 pt 粗体。Elsevier 将普通文字最终约 7 pt 作为经验建议，9 pt 面板字母是本图的版式选择。PDF 已核验常规体与粗体的 TrueType 字体嵌入，并完成独立渲染检查。具体目标期刊的作者指南优先于出版社通用建议。</p>
 </section>
 <section><h2>两个面板如何理解？</h2>
 <p><strong>A — Attribute occupancy：</strong>每条表示相应固定列表格中非空单元格的比例。全局按 1,968 个字段建表，各构件类别使用本类别的字段并集；全局非空比例为 1.01%。空白可能是不适用或未提供，不等于数据错误。</p>
@@ -19,8 +19,8 @@
 </section>
 <section id="caption"><h2>英文图注</h2><pre>__CAPTION__</pre><p><a href="Fig1_caption.txt" download>下载可编辑英文图注</a></p></section>
 <section id="downloads"><h2>文件与复现</h2><ul>
-<li><a href="Fig1.png" download>Fig1.png</a></li><li><a href="Fig1.tif" download>Fig1.tif</a></li><li><a href="Fig1.svg" download>Fig1.svg</a></li>
+<li><a href="Fig1.pdf" download>Fig1.pdf — 嵌入字体的矢量投稿文件</a></li><li><a href="Fig1.png" download>Fig1.png</a></li><li><a href="Fig1.tif" download>Fig1.tif</a></li><li><a href="Fig1.svg" download>Fig1.svg</a></li>
 <li><a href="Fig1_caption.txt" download>Fig1_caption.txt</a></li><li><a href="figure_statistics.csv" download>figure_statistics.csv</a></li><li><a href="figure_statistics.json" download>figure_statistics.json</a></li><li><a href="figure_specification.txt" download>figure_specification.txt</a></li>
 </ul><pre>python experiments/component_attribute_analysis/build_journal_figure.py</pre>
-<p class="note">排版参考：<a href="https://journals.plos.org/plosone/s/figures">PLOS figure requirements</a>。不同期刊的字号、栏宽和提交格式要求并不完全相同。</p></section>
+<p class="note">官方依据：<a href="https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-sizing">Elsevier artwork sizing</a>、<a href="https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-overview">文件格式与字体</a>、<a href="https://www.elsevier.com/about/policies-and-standards/author/artwork-and-media-instructions/artwork-formats-checklist">图注与提交检查</a>。图注按投稿系统要求提交到 Figure Caption 项，或放在手稿末尾。</p></section>
 </main></body></html>

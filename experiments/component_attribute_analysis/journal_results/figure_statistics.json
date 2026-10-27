@@ -1,6 +1,6 @@
 {
   "snapshot_date": "2026-10-14",
-  "figure_date": "2026-10-27",
+  "figure_date": "2026-10-28",
   "selected_cohort": "model_6 excluded",
   "data_stage": "observed full paths before comprehensive synonym harmonization",
   "input_sha256": {
@@ -9,21 +9,23 @@
     "focus_model6_evidence.json": "3589fa620fe78b11727ae95ade57f4d85b40cb94b99ea795c3dd3c13f012db9c"
   },
   "figure_specification": {
+    "publisher_guidance": "Elsevier general artwork guidance",
     "panels": [
       "A",
       "B"
     ],
     "language": "English",
-    "width_mm": 180,
-    "height_mm": 90,
+    "width_mm": 190,
+    "height_mm": 85,
     "font": "Arial",
-    "font_size_pt": [
-      8,
-      11
-    ],
-    "raster_dpi": 600,
+    "ordinary_text_pt": 7,
+    "panel_label_pt": 9,
+    "png_dpi": 600,
+    "tiff_dpi": 1000,
     "panel_b_scale": "linear",
-    "vector": "SVG with editable text and vector marks"
+    "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
+    "titles": "Panel headings omitted; figure title and statistical definitions are in a separate caption",
+    "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"
   },
   "statistics": {
     "model_count": 214,

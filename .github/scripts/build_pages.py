@@ -29,7 +29,7 @@ tabular_site.mkdir(exist_ok=True)
 tabular_report = OUTPUT / "tabular_characteristics.html"
 tabular_text = tabular_report.read_text(encoding="utf-8")
 for source in tabular_source.iterdir():
-    if source.is_file() and source.suffix in {".png", ".svg", ".tif", ".json", ".csv", ".txt"}:
+    if source.is_file() and source.suffix in {".png", ".svg", ".pdf", ".tif", ".json", ".csv", ".txt"}:
         shutil.copyfile(source, tabular_site / source.name)
         tabular_text = tabular_text.replace(f'href="{source.name}"', f'href="tabular/{source.name}"')
 tabular_report.write_text(tabular_text, encoding="utf-8", newline="\n")
