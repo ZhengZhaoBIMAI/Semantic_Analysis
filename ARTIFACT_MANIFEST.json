@@ -16,13 +16,13 @@
     },
     {
       "path": ".github/scripts/build_pages.py",
-      "bytes": 635,
-      "sha256": "cd58673d94b7dc0226060809c51982e33b6c7900dc402519ed3bb552862b5ffc"
+      "bytes": 1257,
+      "sha256": "238e2bea89e12e86153ca7f0360206f1242cd4f9c6e34078e9f5acf5ce6680b4"
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 1002,
-      "sha256": "05f132057437d53906a7cbc46648f9d6672cbc7e0f48e6652398ee372c69a8c1"
+      "bytes": 1149,
+      "sha256": "f6e4969ab218fb14cf5a4ee3b2a052c0e46d846a1743f5c0fa549390bdd89c50"
     },
     {
       "path": ".gitignore",
@@ -45,6 +45,11 @@
       "sha256": "493a84753ccd10fb00b057af01ec7b242b3f22e0ab1379c8c960f3bc5da66e86"
     },
     {
+      "path": "experiments/component_attribute_analysis/build_focus_analysis.py",
+      "bytes": 20820,
+      "sha256": "22dfcf79d51f0826111e232bd43f5a40591863539d062f3bcd463e8dbedc4ae2"
+    },
+    {
       "path": "experiments/component_attribute_analysis/dataset_report_glossary.html",
       "bytes": 10132,
       "sha256": "423a64321c991bb598379dc74bc7755dc6a72529071d630ab24ee08b1cb4ace1"
@@ -61,8 +66,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html",
-      "bytes": 9297196,
-      "sha256": "ba02423181942e30dae0c8f3ea7869037ab387195602e58ca538988e93485d20"
+      "bytes": 9297334,
+      "sha256": "8b3a91e1b0e71c84c3d128a9e596ed6ac8f82b90e6f2db76f157459711db3955"
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl.gz",
@@ -91,8 +96,78 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_semantic_report.html",
-      "bytes": 33023,
-      "sha256": "cd02a6fd70415a715b631dbc595271b8dcf217b43e67ec20091d2b8889db6893"
+      "bytes": 33161,
+      "sha256": "704c5bebc84f08cd61206283ed4a5550986ee54e553d7e02737195c880f06edb"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/export_focus_evidence.py",
+      "bytes": 3646,
+      "sha256": "09984e15935f5abd259166d69d1ce51461f4462ae170a28282aabd9ffba6943d"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_model6_evidence.json",
+      "bytes": 288071,
+      "sha256": "3589fa620fe78b11727ae95ade57f4d85b40cb94b99ea795c3dd3c13f012db9c"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/01_field_composition.png",
+      "bytes": 82721,
+      "sha256": "066261a9fe31936e54b5d3b963af8fd23b95690499e4be18470aa549cb51f258"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/01_field_composition.svg",
+      "bytes": 18852,
+      "sha256": "e7373efa7491c47a5f0e27432e70200c9ec1ad73b0436c07938a98a13addab35"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/02_same_class_model_variation.png",
+      "bytes": 137355,
+      "sha256": "9b101d31e174df7cccbdf8c853277422db48ab7b097d298d546d15d553e53643"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/02_same_class_model_variation.svg",
+      "bytes": 15388,
+      "sha256": "b75fd6e14db2cc7bc9d74b45067d71fd8507ba81fb24d93ff6e4e1ec3770a584"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/03_field_vocabulary_concentration.png",
+      "bytes": 158925,
+      "sha256": "011385e3aed28d850dddaa631ad9fc8d48100f4f6a46280eef969320f19c1900"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/03_field_vocabulary_concentration.svg",
+      "bytes": 19342,
+      "sha256": "8c63083a7713bffe302f01f2ddea033bb807777a345a786a305d5dc3e590cf35"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/04_object_vs_model_coverage.png",
+      "bytes": 121844,
+      "sha256": "12377677d2a4af38f32225eb05e597a8e703480ec51bbe251a671344d4426398"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/04_object_vs_model_coverage.svg",
+      "bytes": 12299,
+      "sha256": "e45d82257a7801ea8a4a2fb8309bbc1b55bbbf19478d933db9782abb61cdcb77"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/model_class_counts.csv",
+      "bytes": 43912,
+      "sha256": "e6b42d5fbb73d6458fd1016882740fa497c51c7857441217a5681799f653f515"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_report.html",
+      "bytes": 846923,
+      "sha256": "70c48252bf91246bb1481261e8b2df79a277f6aa56f3888dc2b08f06a7e49514"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_statistics.json",
+      "bytes": 859410,
+      "sha256": "660c6685b3a2e3d8f3d5686f132174767338fd81cd462a63a1e1fbac9b5cc241"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/focus_semantic_report.html",
+      "bytes": 14713,
+      "sha256": "981556a1515e31ff69e7a5a7e56ade08c59d83e6d61e06b63dda1ae236acc430"
     },
     {
       "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html",
@@ -111,8 +186,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6697,
-      "sha256": "9c0e0428ceacc6659b4bc39cece79f76d84ba61ec421fd5568708a99c7311681"
+      "bytes": 7912,
+      "sha256": "5e2f1557ebc43c337eb78dded7027800ce4cb61f278eca81ab73e1225fe06dc8"
     },
     {
       "path": "requirements.txt",

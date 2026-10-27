@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semantic 深入分析：字段数量与跨模型差异</title>
+<style>
+:root{--ink:#203d4e;--muted:#5e7280;--blue:#176b91;--line:#dce6ec;--bg:#f5f8fa}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font:16px/1.8 "Microsoft YaHei","Segoe UI",sans-serif}main{max-width:1180px;margin:auto;padding:32px 28px 70px}h1{font-size:30px;line-height:1.45}h2{font-size:23px;line-height:1.5;margin-top:0}h3{font-size:18px}p{margin:.65em 0}a{color:var(--blue)}header .meta,.note{color:var(--muted);font-size:14px}section{background:white;padding:28px;margin:24px 0;border:1px solid var(--line);border-radius:8px}.lead{padding:18px 0;font-size:18px}.chart{display:block;width:100%;height:auto;margin:22px 0 12px}.tablewrap{overflow-x:auto;margin:18px 0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#edf3f7}td:not(:first-child){font-variant-numeric:tabular-nums}code,pre{font:13px/1.7 Consolas,"Microsoft YaHei",monospace}code{overflow-wrap:anywhere;background:#eff4f7;padding:2px 4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:480px;overflow:auto;background:#f2f6f8;padding:16px}details{margin:16px 0}summary{cursor:pointer;color:var(--blue)}li{margin:9px 0}.controls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:18px 0}select{font:inherit;padding:7px;color:var(--ink);background:white;border:1px solid #b9cad5;border-radius:4px}.model-table tr[hidden]{display:none}nav{display:flex;gap:20px;flex-wrap:wrap}.model-scroll{max-height:480px;overflow:auto}.model-scroll th{position:sticky;top:0}@media(max-width:700px){main{padding:20px 13px 45px}section{padding:18px 14px}h1{font-size:25px}h2{font-size:21px}table{font-size:13px}th,td{padding:8px}}@media print{body{background:white}section{border:0;padding:8px 0;break-inside:avoid}.controls{display:none}.model-scroll{max-height:none;overflow:visible}.chart{break-inside:avoid}}
+</style>
+</head>
+<body><main>
+<header><nav><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/">返回综合报告</a><a href="#counts">字段数量</a><a href="#models">模型差异</a><a href="#vocabulary">字段词表</a><a href="#coverage">覆盖率</a></nav>
+<h1>Semantic 深入分析：字段多，意味着信息丰富吗？</h1>
+<p class="meta">数据快照：2026-10-14 · 深入分析：2026-10-27 · 215 个模型 · 93,359 个目标构件</p>
+<p class="lead"><strong>数量有一定参考价值，但不能直接代表内容质量。模型之间确实存在显著差异；其中一部分差异来自字段写法、属性组和模板内容，而不只是物理构件的细节多少。</strong></p>
+<p>本页集中回答两个问题：每个构件“16 个属性”里包括什么？合计“4,688 种字段”为什么不能说明每个模型都很丰富？全部图表基于已有审计数据重新计算，没有修改模型或重新生成 embedding。</p>
+</header>
+
+<section id="counts"><h2>一、16 → 12 是计数规则改变，不是“四分之一的信息无效”</h2>
+<p>把一个构件的属性集展开后，每个带值的末级字段算一项。例如 <code>Pset_WallCommon.IsExternal=true</code> 算一项。全部构件共有 <strong>2,000,878 次非空字段出现</strong>；同一个字段出现在 100 面墙上，就在这里计 100 次。</p>
+__COMPOSITION_TABLE__
+<p>原来的诊断规则删除 Name、所有 Reference 和明确未定义占位，共减少 <strong>16.75%</strong> 的字段出现次数。其中名称和首个引用仍可能帮助识别类型，因此不能把这 16.75% 全部称作无效内容。</p>
+__FIGURE_1__
+<p><strong>读图：</strong>每条横条是一类构件的平均字段数。各色部分可以相加，所以这里使用平均数；中位数不能按这种方式拆分相加。蓝色只是“按规则保留”，不是“已经确认独立、正确、有用”。</p>
+<h3>换一套合理的去重规则，结果就不同</h3>
+__RULES_TABLE__
+<p>例如同一构件 3 个 Reference 都填了同一个类型名，只去掉多出的 2 份，同时保留名称和首个引用，再去明确占位：中位数变成 <strong>14</strong>，而不是 12。全部字段出现次数仅减少 <strong>7.74%</strong>。这是一项敏感性检查，不是建议直接修改现有提取结果。</p>
+<p class="note">16、14、12 各是对应规则下全部构件计数的中位数。不能用 (16−12)/16 推算全部数据中无效字段的比例，也不能理解为每个构件都减少了 4 项。</p>
+<h3>为什么保留的字段数仍会高估内容细节？</h3>
+<p><strong>真实案例：model_217 的一面墙（node 1）。</strong>它有 62 个非空字段，按原规则剩 59 个；这 59 个里，31 个值只是字段名本身，例如 <code>Manufacturer="Manufacturer"</code>、<code>WarrantyStartDate="WarrantyStartDate"</code>、<code>NominalHeight="NominalHeight"</code>。字段名看起来覆盖厂家、保修、尺寸，但这些值并没有提供具体厂家、日期或尺寸。</p>
+<p>“值等于字段名”是模板内容的检查信号，尚未对全部模型做这种内容质量审计。不能把所有这种值自动判无效，也不能据此给整个数据集计算可靠的“有效信息量”。</p>
+<p><strong>相同值也不一定重复：</strong><code>IsExternal=false</code> 与 <code>LoadBearing=false</code> 分别表达“非外部构件”和“非承重”，两个 false 都有意义。多个构件共用同一材料或类型也很正常。当前去重只针对同一构件内、值相同的 Reference 额外副本。</p>
+</section>
+
+<section id="models"><h2>二、只比较同一种构件，模型间差异仍然很大</h2>
+<p>不能直接拿“一个门窗多的模型”和“一个梁柱多的模型”比较总属性数。这里先在每个模型内，只看同一类构件，取它们字段数量的中位数，作为该模型这类构件的典型数量；然后比较模型之间的差异。每个模型权重一样。</p>
+__FIGURE_2__
+<p><strong>读图：</strong>以墙为例，把 215 个模型各自的典型字段数量从少到多排列，去掉两端各约 10% 后，中间约 80% 模型落在 <strong>4–40 个字段</strong>。深色带为中央一半模型的范围，橙色点为模型典型数量再取一次中位数。这里不是说 80% 的墙都落在这个区间。</p>
+<p>所以差异不只是构件种类比例造成的。排除字段特别多的 model_6 后，墙的对应范围仍约 <strong>4–39.7</strong>，说明也不是仅靠一个极端模型撑出的现象。板的区间端点 3.7 来自百分位插值，并不表示一个构件有 3.7 个字段。</p>
+__CLASS_TABLE__
+<p class="note">“常见字段”只是一个便于比较的筛选：该类全部构件中至少一半有值，而且含该类构件的模型中至少一半出现过该字段。50% 是本次筛选线，不是行业标准。计数仍按完整字段名，未全面合并同义字段，也未额外删除所有占位或模板内容，因此不是可靠的任务特征清单。</p>
+<h3>这意味着什么？</h3>
+<p>同样叫“墙”或“门”，不同模型可能提供不同种类和数量的输入。对后续分类或检索任务，既需要检查丰富模型是否只是多了软件、族参数和模板文字，也需要检查精简模型是否缺少任务必需的尺寸、材料和性能。当前统计不能直接证明 embedding 好坏，也不能推断某一种软件更好。</p>
+</section>
+
+<section id="vocabulary"><h2>三、4,688 个字段名，有超过一半只来自一个模型</h2>
+<p>model_6 只有 <strong>1,021 个构件，占 1.09%</strong>，却贡献了 <strong>2,720 个只在它出现的完整字段名，占全部 4,688 个字段名的 58.02%</strong>。作为敏感性检查，排除它后，其他 214 个模型合计出现 1,968 个完整字段名。</p>
+__FIGURE_3__
+<p><strong>读图：</strong>上半图按完整字段名去重，说明整个字段词表对一个模型的依赖。下半图在每类构件内统计字段，所以同名字段出现在墙和门中会分别计一次。下半图七类合计为 5,392 个“构件类别＋完整字段名”组合，其中 <strong>4,141 个（76.80%）只在一个模型出现</strong>。这两个口径不可混用。</p>
+<h3>真实例子：324 个字段的一扇门</h3>
+<p>已发布案例中的 model_6 门 node 665 有 <strong>324 个字段</strong>：268 个来自门族属性组 <code>AC_Equantity_Door_26</code>，46 个来自 <code>ArchiCADQuantities</code>，其余 10 个来自基础字段、公共属性和标准工程量。它有许多不同侧面、不同标高基准、二维/三维口径的参数，不能把 324 直接理解为 324 个独立性能维度。</p>
+<p>这些详细参数可能有价值；稀有本身不代表无用。另一方面，<code>ArchiCADQuantities.W/D Opening Width on the Reveal Side</code> 与其他侧面或名义宽度字段即使同为 900，也不能只因数值相同就合并，它们的口径可能不同。</p>
+<p><strong>结论：</strong>大量字段代表了多套属性命名和参数体系的并集。需要先核对同义关系、用途、值与单位，再评价它们是否增加了任务需要的细节。不能把“只在一模型出现”一律当作其他模型缺失。</p>
+</section>
+
+<section id="coverage"><h2>四、构件中常见，与模型中通用，是两件事</h2>
+__FIGURE_4__
+<p><strong>一个直接的例子：</strong>墙宽度字段 <code>BaseQuantities.Width</code> 出现在 <strong>9,564 / 28,313 面墙（33.78%）</strong>上，但只来自 <strong>10 / 215 个模型（4.65%）</strong>。几个构件数量较多的模型，就能把前一个比例抬高。因此不能把“约三分之一的墙有值”理解成“约三分之一的模型通用”。</p>
+<p>另一个宽度字段 <code>Qto_WallBaseQuantities.Width</code> 在不同路径下统计。目前没有把这些潜在同义写法全面合并。<strong>某一条路径没有值，不等于这个构件完全没有宽度信息</strong>；也不能把两条覆盖率简单相加，因为可能存在重叠或不同物理口径。</p>
+<p>选择用于训练或比较的稳定属性时，应同时看：有多少构件提供它、有多少模型提供它、不同模型是否用另一种写法表达它，以及实际值是否可靠。</p>
+</section>
+
+<section><h2>逐项核对真实构件</h2><p>以下案例直接复用综合报告中的构件，完整字段和值均可展开查看。它们用于解释机制，不代表整个模型或全部数据的质量。</p>__CASES__</section>
+
+<section><h2>逐模型核对同类构件的字段数量</h2>
+<p>每行是一份模型中的一种构件；“诊断口径”删除 Name、全部 Reference 和明确未定义占位。一个模型中可能包含多种构件，因此行数多于模型数。</p>
+<div class="controls"><label for="focusClass">构件类别：</label><select id="focusClass"><option value="IfcWall">墙</option><option value="IfcSlab">板</option><option value="IfcColumn">柱</option><option value="IfcDoor">门</option><option value="IfcWindow">窗</option><option value="IfcBeam">梁</option><option value="IfcSpace">空间</option><option value="">全部类别</option></select><span id="focusCount" aria-live="polite"></span></div>
+<div class="tablewrap model-scroll"><table class="model-table"><thead><tr><th>模型</th><th>构件</th><th>构件数</th><th>非空字段中位数</th><th>诊断口径字段中位数</th></tr></thead><tbody id="focusRows">__MODEL_ROWS__</tbody></table></div>
+</section>
+
+<section><h2>现在可以下什么结论，下一步如何验证？</h2>
+<ol><li><strong>有些文本重复，但不能据此说大部分字段无用。</strong>相同 Reference 的额外副本占全部字段出现次数的 6.04%；只去这些副本与明确占位，减少 7.74%。名称、第一份引用、0 和 false 都可能有用。</li>
+<li><strong>模型之间的输入差异确实值得单独处理。</strong>这种差异在控制构件类别后仍存在；字段词表又明显受一个特殊模型影响。后续应分别报告各模型、各构件类别、排除特殊模型后的结果。</li>
+<li><strong>要判断“够不够细”，需要针对任务定义信息项。</strong>例如墙是否需要厚度、材料层、承重、防火、热工信息；不能仅凭字段总数评价。需在补齐提取、统一同义字段和单位后，检查这些信息项是否有真实值。</li>
+<li><strong>要判断这些差异是否影响训练，需要做消融实验。</strong>可比较原始文本、只去重复引用与占位、规范同义属性后的表现，并按模型分组划分数据，避免同一模型的模板同时出现在训练和测试中。当前描述统计没有验证准确率或泛化效果。</li></ol>
+<h3>范围和复现</h3>
+<p>统计对象是 Stage1 已进入图的 93,359 个目标节点，不是原始 IFC 中的全部对象。当前提取已知会遗漏部分类型共享属性、材料组成等，因此本页描述的是“现有 Semantic 输入”，不能替代对源 IFC 完整度的判断。</p>
+<p>四张图分别使用平均字段数、模型内中位数的分布、字段名去重统计、两种分母的覆盖率。没有把这些不同口径混成一个“信息质量分数”。</p>
+<p><a href="semantic_focus_statistics.json">本页完整统计 JSON</a> · <a href="model_class_counts.csv">逐模型、逐类别计数 CSV</a> · <a href="https://github.com/ZhengZhaoBIMAI/Semantic_Analysis/tree/main/experiments/component_attribute_analysis/focus_results">PNG / SVG 图表</a></p>
+<pre>python experiments/component_attribute_analysis/build_focus_analysis.py</pre>
+<p class="note">model_6 集中度计算使用已核对源 CSV SHA-256 的字段出现证据；仓库保留证据及重新导出脚本。其余统计可直接从已发布 JSON、逐节点诊断和综合报告案例重建。该分析不比较跨单位的物理量大小，也不对软件或导出设置做因果归因。</p>
+</section>
+</main>
+<script>
+const selector=document.getElementById('focusClass');
+const rows=Array.from(document.getElementById('focusRows').children);
+function filterClass(){let count=0;for(const row of rows){const visible=!selector.value||row.dataset.class===selector.value;row.hidden=!visible;if(visible)count++;}document.getElementById('focusCount').textContent=`显示 ${count} 行模型与构件类别统计`;}
+selector.addEventListener('change',filterClass);filterClass();
+</script>
+</body></html>

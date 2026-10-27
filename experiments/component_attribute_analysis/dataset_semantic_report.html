@@ -4,6 +4,7 @@
 @media(max-width:900px){main{padding:20px 14px}.metrics{grid-template-columns:1fr 1fr}.findings,.casegrid{grid-template-columns:1fr}.panel{padding:17px}.count{margin-left:0}}@media print{body{background:white}main{padding:0}.tabs,.controls,.pager,button{display:none}.tab{display:block;break-before:page}.tablebox{overflow:visible}.panel{border:0;padding:12px 0}.findings{display:block}.finding{margin-bottom:10px}pre{max-height:none}}
 </style></head><body><main>
 <header><div class="eyebrow">STAGE1 EXPERIMENT / DATASET SEMANTICS</div><h1>跨模型构件 semantic 分析</h1><p id="subtitle" class="muted"></p></header>
+<p><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html">??????????????????????????????????????????? ?</a></p>
 <div class="lead"><strong>当前 semantic 含有基础类别、功能与部分尺寸信息，丰富程度在模型之间差异明显。</strong><p>主要问题是字段长尾、名称和引用重复，以及类型继承和材料组成未完整提取。属性数量与可用细节需要分别判断。</p></div>
 <section class="metrics" id="metrics"></section>
 <section class="panel"><h2>主要发现</h2><div class="findings" id="findings"></div><p class="note">本报告分析当前属性输入。7 维类别 one-hot 与 1000 维属性 embedding 是向量结构，不能当作属性数量。未重新调用 embedding API，也未改变实验数据。</p></section>

@@ -4,11 +4,18 @@
 
 ## 查看结果
 
+在线查看：[综合报告](https://zhengzhaobimai.github.io/Semantic_Analysis/) · [字段数量与跨模型差异深入分析（新增四张图）](https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html)。
+
 下载或克隆仓库后，用浏览器打开下面的 HTML。报告内嵌图表和数据，可离线筛选，并导出 CSV。
 
 - [跨模型分析报告](experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html)：各类构件属性数量、内容类型、字段覆盖率、215 个模型对比、原始 IFC 遗漏、12 个代表模型的构件实例。
 - [model_0 案例报告](experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html)：单个模型的详细检查和 semantic 输入示例。
 - [属性数量与材料对照图](experiments/component_attribute_analysis/dataset_results/semantic_richness_distribution.png)。
+- [字段数量与模型差异深入分析](experiments/component_attribute_analysis/focus_results/semantic_focus_report.html)：区分字段数量与信息量、对比同类构件在不同模型中的分布、检验 model_6 对字段词表的影响，并解释构件覆盖率和模型覆盖率的差别。四张图同时提供 PNG 和 SVG。
+
+深入分析基于 2026-10-14 的同一数据快照，于 2026-10-27 计算。16→12 是两种计数规则下的中位数，不能解释为 25% 信息无效；按字段出现次数，原诊断规则剔除 16.75%，只去重复引用副本和明确占位则剔除 7.74%。
+
+复现新增分析：`python experiments/component_attribute_analysis/build_focus_analysis.py`。model_6 字段出现证据已随仓库提供；如需从外部 Stage1 数据重新导出，运行 `python experiments/component_attribute_analysis/export_focus_evidence.py --project-root "C:\path\Stage1_experiment"`。源 CSV 必须与已发布快照的 SHA-256 一致。
 
 GitHub 的文件页面会展示 HTML 源码；在本地浏览器中打开下载的文件即可查看交互报告。
 
