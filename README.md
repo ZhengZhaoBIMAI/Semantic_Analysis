@@ -4,7 +4,7 @@
 
 ## 查看结果
 
-新增：[BIM 属性的表格结构特征配图](https://zhengzhaobimai.github.io/Semantic_Analysis/tabular_characteristics.html)，含稀疏性、构件属性数量分布和跨模型共享程度三个面板，以及排除 model_6 的对照。提供中英文 400 dpi PNG、SVG、英文图注、CSV 和 JSON。统计基于当前审计快照，尚未完成全面同义字段规范化，不能标为清洗后的最终 WP1 数据。
+当前版本：[BIM 属性的表格结构特征配图](https://zhengzhaobimai.github.io/Semantic_Analysis/tabular_characteristics.html)。使用排除 model_6 后的 214 个模型、92,338 个构件，仅保留 A（非空比例）与 B（属性数量分布），图内全英文。按 180 × 90 mm 双栏尺寸、Arial 8–11 pt 制作，提供 600 dpi RGB PNG／LZW TIFF、可编辑 SVG、英文图注、CSV 和 JSON。统计基于当前审计快照，尚未完成全面同义字段规范化，不能标为清洗后的最终 WP1 数据。
 
 在线查看：[综合报告](https://zhengzhaobimai.github.io/Semantic_Analysis/) · [字段数量与跨模型差异深入分析（新增四张图）](https://zhengzhaobimai.github.io/Semantic_Analysis/semantic_focus.html)。
 
@@ -19,7 +19,7 @@
 
 复现新增分析：`python experiments/component_attribute_analysis/build_focus_analysis.py`。model_6 字段出现证据已随仓库提供；如需从外部 Stage1 数据重新导出，运行 `python experiments/component_attribute_analysis/export_focus_evidence.py --project-root "C:\path\Stage1_experiment"`。源 CSV 必须与已发布快照的 SHA-256 一致。
 
-复现表格结构配图：`python experiments/component_attribute_analysis/build_tabular_characteristics.py`。输出在 `experiments/component_attribute_analysis/tabular_results/`。非空比例分别以全局或各类别的字段并集为分母；箱线图使用构件级计数和标准 Tukey 定义；字段模型支持数按类别—属性组合计算。排除 model_6 后重新确定字段并集，保留固定原字段并集的对照数值。
+复现当前英文双面板图：`python experiments/component_attribute_analysis/build_journal_figure.py`。输出在 `experiments/component_attribute_analysis/journal_results/`，需要系统安装 Arial。非空比例分别以排除 model_6 后全局或各类别的字段并集为分母；箱线图使用构件级计数、标准 Tukey 定义和线性坐标。图注独立于图稿。排版参照 [PLOS figure requirements](https://journals.plos.org/plosone/s/figures)，具体投稿时按目标期刊规定调整。早期三面板分析保留在 `tabular_results/`。
 
 GitHub 的文件页面会展示 HTML 源码；在本地浏览器中打开下载的文件即可查看交互报告。
 

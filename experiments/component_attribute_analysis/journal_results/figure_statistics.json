@@ -1,0 +1,492 @@
+{
+  "snapshot_date": "2026-10-14",
+  "figure_date": "2026-10-27",
+  "selected_cohort": "model_6 excluded",
+  "data_stage": "observed full paths before comprehensive synonym harmonization",
+  "input_sha256": {
+    "current_semantic_statistics.json": "56382f9cf6c38b051bfa425af05202bd409f72f963949c0912065663f8d083b1",
+    "node_diagnostics.jsonl.gz": "e4fad4f6b0668beb5632068374b3616b75563356477152ac92fabd53db2dab8d",
+    "focus_model6_evidence.json": "3589fa620fe78b11727ae95ade57f4d85b40cb94b99ea795c3dd3c13f012db9c"
+  },
+  "figure_specification": {
+    "panels": [
+      "A",
+      "B"
+    ],
+    "language": "English",
+    "width_mm": 180,
+    "height_mm": 90,
+    "font": "Arial",
+    "font_size_pt": [
+      8,
+      11
+    ],
+    "raster_dpi": 600,
+    "panel_b_scale": "linear",
+    "vector": "SVG with editable text and vector marks"
+  },
+  "statistics": {
+    "model_count": 214,
+    "node_count": 92338,
+    "exclude_model6": true,
+    "vocabulary": "refitted to retained models",
+    "scopes": [
+      {
+        "scope": "ALL",
+        "objects": 92338,
+        "eligible_models": 214,
+        "attributes": 1968,
+        "observed_cells": 1837147,
+        "potential_cells": 181721184,
+        "occupancy_percent": 1.0109701904649708,
+        "structural_blank_percent": 98.98902980953503,
+        "occupancy_with_baseline_vocabulary_percent": 0.42440045538290583,
+        "attribute_class_pairs": 2486,
+        "count_distribution": {
+          "min": 1,
+          "p10": 8.0,
+          "q1": 11.0,
+          "median": 16.0,
+          "q3": 24.0,
+          "p90": 41.0,
+          "max": 107,
+          "mean": 19.895893348350626,
+          "whisker_low": 1.0,
+          "whisker_high": 43.0,
+          "outlier_count": 7492
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 1237,
+            "percent": 49.7586484312148
+          },
+          {
+            "label": "2–5",
+            "count": 551,
+            "percent": 22.164119066773935
+          },
+          {
+            "label": "6–10",
+            "count": 287,
+            "percent": 11.544650040225262
+          },
+          {
+            "label": "11–50",
+            "count": 309,
+            "percent": 12.42960579243765
+          },
+          {
+            "label": "51–100",
+            "count": 2,
+            "percent": 0.08045052292839903
+          },
+          {
+            "label": ">100",
+            "count": 100,
+            "percent": 4.022526146419952
+          }
+        ]
+      },
+      {
+        "scope": "IfcWall",
+        "objects": 28137,
+        "eligible_models": 214,
+        "attributes": 311,
+        "observed_cells": 624668,
+        "potential_cells": 8750607,
+        "occupancy_percent": 7.138567644507404,
+        "structural_blank_percent": 92.8614323554926,
+        "occupancy_with_baseline_vocabulary_percent": 5.796591481571286,
+        "attribute_class_pairs": 311,
+        "count_distribution": {
+          "min": 2,
+          "p10": 8.0,
+          "q1": 15.0,
+          "median": 17.0,
+          "q3": 36.0,
+          "p90": 42.0,
+          "max": 67,
+          "mean": 22.200945374418026,
+          "whisker_low": 2.0,
+          "whisker_high": 67.0,
+          "outlier_count": 0
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 167,
+            "percent": 53.69774919614147
+          },
+          {
+            "label": "2–5",
+            "count": 43,
+            "percent": 13.826366559485532
+          },
+          {
+            "label": "6–10",
+            "count": 25,
+            "percent": 8.038585209003216
+          },
+          {
+            "label": "11–50",
+            "count": 59,
+            "percent": 18.971061093247588
+          },
+          {
+            "label": "51–100",
+            "count": 0,
+            "percent": 0.0
+          },
+          {
+            "label": ">100",
+            "count": 17,
+            "percent": 5.466237942122187
+          }
+        ]
+      },
+      {
+        "scope": "IfcSlab",
+        "objects": 5547,
+        "eligible_models": 214,
+        "attributes": 264,
+        "observed_cells": 91370,
+        "potential_cells": 1464408,
+        "occupancy_percent": 6.239381374589596,
+        "structural_blank_percent": 93.7606186254104,
+        "occupancy_with_baseline_vocabulary_percent": 5.3654615077904015,
+        "attribute_class_pairs": 264,
+        "count_distribution": {
+          "min": 3,
+          "p10": 7.0,
+          "q1": 9.0,
+          "median": 14.0,
+          "q3": 17.0,
+          "p90": 35.0,
+          "max": 55,
+          "mean": 16.471966828916532,
+          "whisker_low": 3.0,
+          "whisker_high": 29.0,
+          "outlier_count": 845
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 139,
+            "percent": 52.65151515151515
+          },
+          {
+            "label": "2–5",
+            "count": 36,
+            "percent": 13.636363636363635
+          },
+          {
+            "label": "6–10",
+            "count": 23,
+            "percent": 8.712121212121213
+          },
+          {
+            "label": "11–50",
+            "count": 49,
+            "percent": 18.560606060606062
+          },
+          {
+            "label": "51–100",
+            "count": 0,
+            "percent": 0.0
+          },
+          {
+            "label": ">100",
+            "count": 17,
+            "percent": 6.4393939393939394
+          }
+        ]
+      },
+      {
+        "scope": "IfcColumn",
+        "objects": 10620,
+        "eligible_models": 205,
+        "attributes": 180,
+        "observed_cells": 179397,
+        "potential_cells": 1911600,
+        "occupancy_percent": 9.384651600753296,
+        "structural_blank_percent": 90.6153483992467,
+        "occupancy_with_baseline_vocabulary_percent": 7.038488700564972,
+        "attribute_class_pairs": 180,
+        "count_distribution": {
+          "min": 4,
+          "p10": 8.0,
+          "q1": 10.0,
+          "median": 13.0,
+          "q3": 22.0,
+          "p90": 34.0,
+          "max": 44,
+          "mean": 16.892372881355932,
+          "whisker_low": 4.0,
+          "whisker_high": 40.0,
+          "outlier_count": 197
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 78,
+            "percent": 43.333333333333336
+          },
+          {
+            "label": "2–5",
+            "count": 37,
+            "percent": 20.555555555555554
+          },
+          {
+            "label": "6–10",
+            "count": 28,
+            "percent": 15.555555555555555
+          },
+          {
+            "label": "11–50",
+            "count": 23,
+            "percent": 12.777777777777777
+          },
+          {
+            "label": "51–100",
+            "count": 0,
+            "percent": 0.0
+          },
+          {
+            "label": ">100",
+            "count": 14,
+            "percent": 7.777777777777778
+          }
+        ]
+      },
+      {
+        "scope": "IfcDoor",
+        "objects": 10189,
+        "eligible_models": 211,
+        "attributes": 456,
+        "observed_cells": 165770,
+        "potential_cells": 4646184,
+        "occupancy_percent": 3.5678741952535677,
+        "structural_blank_percent": 96.43212580474643,
+        "occupancy_with_baseline_vocabulary_percent": 0.6736855623335928,
+        "attribute_class_pairs": 456,
+        "count_distribution": {
+          "min": 4,
+          "p10": 8.0,
+          "q1": 10.0,
+          "median": 11.0,
+          "q3": 19.0,
+          "p90": 34.0,
+          "max": 78,
+          "mean": 16.269506330356265,
+          "whisker_low": 4.0,
+          "whisker_high": 32.0,
+          "outlier_count": 1315
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 273,
+            "percent": 59.86842105263158
+          },
+          {
+            "label": "2–5",
+            "count": 80,
+            "percent": 17.543859649122805
+          },
+          {
+            "label": "6–10",
+            "count": 35,
+            "percent": 7.675438596491229
+          },
+          {
+            "label": "11–50",
+            "count": 57,
+            "percent": 12.5
+          },
+          {
+            "label": "51–100",
+            "count": 0,
+            "percent": 0.0
+          },
+          {
+            "label": ">100",
+            "count": 11,
+            "percent": 2.4122807017543857
+          }
+        ]
+      },
+      {
+        "scope": "IfcWindow",
+        "objects": 17220,
+        "eligible_models": 204,
+        "attributes": 603,
+        "observed_cells": 315857,
+        "potential_cells": 10383660,
+        "occupancy_percent": 3.041865777577463,
+        "structural_blank_percent": 96.95813422242254,
+        "occupancy_with_baseline_vocabulary_percent": 1.5084252170059294,
+        "attribute_class_pairs": 603,
+        "count_distribution": {
+          "min": 4,
+          "p10": 8.0,
+          "q1": 10.0,
+          "median": 12.0,
+          "q3": 19.0,
+          "p90": 34.0,
+          "max": 107,
+          "mean": 18.3424506387921,
+          "whisker_low": 4.0,
+          "whisker_high": 32.0,
+          "outlier_count": 2235
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 248,
+            "percent": 41.127694859038144
+          },
+          {
+            "label": "2–5",
+            "count": 212,
+            "percent": 35.1575456053068
+          },
+          {
+            "label": "6–10",
+            "count": 92,
+            "percent": 15.257048092868988
+          },
+          {
+            "label": "11–50",
+            "count": 39,
+            "percent": 6.467661691542288
+          },
+          {
+            "label": "51–100",
+            "count": 1,
+            "percent": 0.16583747927031509
+          },
+          {
+            "label": ">100",
+            "count": 11,
+            "percent": 1.8242122719734661
+          }
+        ]
+      },
+      {
+        "scope": "IfcBeam",
+        "objects": 12795,
+        "eligible_models": 190,
+        "attributes": 295,
+        "observed_cells": 274158,
+        "potential_cells": 3774525,
+        "occupancy_percent": 7.263377511077553,
+        "structural_blank_percent": 92.73662248892245,
+        "occupancy_with_baseline_vocabulary_percent": 6.265194051952861,
+        "attribute_class_pairs": 295,
+        "count_distribution": {
+          "min": 1,
+          "p10": 5.0,
+          "q1": 11.0,
+          "median": 18.0,
+          "q3": 18.0,
+          "p90": 52.0,
+          "max": 88,
+          "mean": 21.42696365767878,
+          "whisker_low": 1.0,
+          "whisker_high": 26.0,
+          "outlier_count": 2816
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 156,
+            "percent": 52.88135593220339
+          },
+          {
+            "label": "2–5",
+            "count": 37,
+            "percent": 12.54237288135593
+          },
+          {
+            "label": "6–10",
+            "count": 42,
+            "percent": 14.237288135593221
+          },
+          {
+            "label": "11–50",
+            "count": 42,
+            "percent": 14.237288135593221
+          },
+          {
+            "label": "51–100",
+            "count": 0,
+            "percent": 0.0
+          },
+          {
+            "label": ">100",
+            "count": 18,
+            "percent": 6.101694915254238
+          }
+        ]
+      },
+      {
+        "scope": "IfcSpace",
+        "objects": 7830,
+        "eligible_models": 190,
+        "attributes": 377,
+        "observed_cells": 185927,
+        "potential_cells": 2951910,
+        "occupancy_percent": 6.29853213681989,
+        "structural_blank_percent": 93.70146786318011,
+        "occupancy_with_baseline_vocabulary_percent": 4.8559235492456,
+        "attribute_class_pairs": 377,
+        "count_distribution": {
+          "min": 5,
+          "p10": 9.0,
+          "q1": 11.0,
+          "median": 14.0,
+          "q3": 38.0,
+          "p90": 48.0,
+          "max": 73,
+          "mean": 23.745466155810984,
+          "whisker_low": 5.0,
+          "whisker_high": 73.0,
+          "outlier_count": 0
+        },
+        "model_support_bins": [
+          {
+            "label": "1",
+            "count": 176,
+            "percent": 46.684350132625994
+          },
+          {
+            "label": "2–5",
+            "count": 106,
+            "percent": 28.116710875331563
+          },
+          {
+            "label": "6–10",
+            "count": 42,
+            "percent": 11.140583554376658
+          },
+          {
+            "label": "11–50",
+            "count": 40,
+            "percent": 10.610079575596817
+          },
+          {
+            "label": "51–100",
+            "count": 1,
+            "percent": 0.2652519893899204
+          },
+          {
+            "label": ">100",
+            "count": 12,
+            "percent": 3.183023872679045
+          }
+        ]
+      }
+    ]
+  }
+}

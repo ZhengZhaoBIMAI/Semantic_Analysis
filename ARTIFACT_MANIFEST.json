@@ -11,18 +11,18 @@
   "files": [
     {
       "path": ".gitattributes",
-      "bytes": 57,
-      "sha256": "c6edf68f3ce0d42e6b6f71da6ab7575ea4afd22c7f9946a056a7e4288015f8f4"
+      "bytes": 70,
+      "sha256": "c8370c9097b79543eb0ba364c22ab158bf1ad551a514475bddda88e788260a92"
     },
     {
       "path": ".github/scripts/build_pages.py",
-      "bytes": 2017,
-      "sha256": "2979e6f62f701d15a9190d9e1bbc9105c49eccfa878bb6678dad375bfdcbab81"
+      "bytes": 2025,
+      "sha256": "a8e925fbfc816ec869bd1521effffc21a3c94727bbc32da64d747c5f72686e2b"
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 1219,
-      "sha256": "021394f01ec5793fa239dab883f767a1f7975d73d7acfff908ae64f45db55822"
+      "bytes": 1289,
+      "sha256": "55e0d168cd45fc07305baab535a1d6a3d2550c0f8362481a4595e29bc2dcd697"
     },
     {
       "path": ".gitignore",
@@ -50,6 +50,11 @@
       "sha256": "22dfcf79d51f0826111e232bd43f5a40591863539d062f3bcd463e8dbedc4ae2"
     },
     {
+      "path": "experiments/component_attribute_analysis/build_journal_figure.py",
+      "bytes": 11976,
+      "sha256": "67ff715270adb73775983c6f0493e48d9759d0925a184b596230f46719f29d55"
+    },
+    {
       "path": "experiments/component_attribute_analysis/build_tabular_characteristics.py",
       "bytes": 22063,
       "sha256": "fce3861456a042f134297394adeab74b54b60fd7642d9165cce1be06401e77d4"
@@ -71,8 +76,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/dataset_semantic_report.html",
-      "bytes": 9297469,
-      "sha256": "2094e851b5287a333dc0a168af27b62b48dfef584d63ba242bc1941afa3a132d"
+      "bytes": 9297474,
+      "sha256": "0e937ce4c074f590bdf2c657b69eebcfca1ae338f24312971a4783db1eb6211a"
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_results/node_diagnostics.jsonl.gz",
@@ -101,8 +106,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/dataset_semantic_report.html",
-      "bytes": 33296,
-      "sha256": "e4eabd37710a0e718a17d118c643a8ced9de3cd216dd49ff753d010263133ded"
+      "bytes": 33301,
+      "sha256": "afbaf2fe58d3a9cd4489e480a0ebf7c507e9dba10acd1a6852187810d3877ef3"
     },
     {
       "path": "experiments/component_attribute_analysis/export_focus_evidence.py",
@@ -161,8 +166,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_report.html",
-      "bytes": 847058,
-      "sha256": "4f8fe661bc70f412ea40d298baa093b721d12c6226a32b6cf0033624f67d526e"
+      "bytes": 847063,
+      "sha256": "a83b86cf40bf93839adf6825101a689cf7456c23763530676e31200eea845682"
     },
     {
       "path": "experiments/component_attribute_analysis/focus_results/semantic_focus_statistics.json",
@@ -171,8 +176,53 @@
     },
     {
       "path": "experiments/component_attribute_analysis/focus_semantic_report.html",
-      "bytes": 14848,
-      "sha256": "9265de53d79ae6e5a582e0ffed324896e4e0e616f4a3879e7cec539231eb4858"
+      "bytes": 14853,
+      "sha256": "4504b8110a4d08814284a282a77fa3d5573a138a81eb63a320d6ba38a64434d4"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_figure_report.html",
+      "bytes": 4235,
+      "sha256": "056eb49084aafcda4561f85ee62ec6a46c7234b4ccd4c040001e943aaf1d1da6"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/Fig1.png",
+      "bytes": 224617,
+      "sha256": "0b3d45f5806d21435d3e418d7804fd9abe46d6f084cf8d6319e76d0d1a446dd6"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/Fig1.svg",
+      "bytes": 2192314,
+      "sha256": "5b79ffb65f42b51dc1a27351b92fd9fbd91a038ccc921305cd47ba721a18d9fe"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/Fig1.tif",
+      "bytes": 509428,
+      "sha256": "fb89b8745cc8efbfb59a454e4799e9e388ad4eb0589cbae008f5965cd3597ff0"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/Fig1_caption.txt",
+      "bytes": 1222,
+      "sha256": "b92fab0a2b1f8d6316f82c65bfaf474afc47553b2fc7d2374bffc543f0ff877a"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/figure_specification.txt",
+      "bytes": 838,
+      "sha256": "ae298c0790e9a6e42f8cde9d909ae879f7be6fb529da263bae13da1e142c6387"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/figure_statistics.csv",
+      "bytes": 875,
+      "sha256": "4fab89fa0b0ffdd2facdb50b0a2524d267876dd3d71ae8b3d226bcd28e0f8eab"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/figure_statistics.json",
+      "bytes": 13066,
+      "sha256": "3dfb5fa690f963ea999b89f93800a5b813661ea91869599ba127050322da3166"
+    },
+    {
+      "path": "experiments/component_attribute_analysis/journal_results/tabular_characteristics_report.html",
+      "bytes": 305815,
+      "sha256": "26b56e0746f90089469d31bd4f0e60c7dbb47ea04e9fc817ca71d40d22b16713"
     },
     {
       "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html",
@@ -281,8 +331,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8793,
-      "sha256": "574016c1b9c26af7f7d62dc543b156c8f69d856c7697e001ea800b8b8025a7f9"
+      "bytes": 9024,
+      "sha256": "3124cd14f0d2e857b3213c1190219e1e370f80d179d50ce4e4998f66c4f03e98"
     },
     {
       "path": "requirements.txt",

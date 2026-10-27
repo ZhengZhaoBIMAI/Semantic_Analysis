@@ -1,0 +1,11 @@
+Selected cohort: model_6 excluded; 214 models and 92,338 objects.
+Panels: A (occupancy) and B (attribute-count distribution); no panel C.
+Artwork size: 180 x 90 mm; RGB; Arial 8-11 pt; white background.
+Raster: 600 dpi PNG and LZW-compressed TIFF; no alpha channel; below 10 MB each.
+Vector: SVG with editable text and vector marks; no embedded raster images.
+Caption and cohort details are outside the artwork. B uses a linear scale.
+Formatting reference: PLOS figure specifications (Arial 8-12 pt; TIFF; 300-600 dpi; separate captions).
+https://journals.plos.org/plosone/s/figures
+General vector/legibility reference: Nature figure guide. Journal-specific font sizes differ.
+https://research-figure-guide.nature.com/figures/building-and-exporting-figure-panels/
+No target journal was specified; check its final submission requirements.
