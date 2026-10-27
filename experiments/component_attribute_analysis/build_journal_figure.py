@@ -21,6 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import font_manager
+from matplotlib.offsetbox import AnchoredOffsetbox, HPacker, TextArea
 from PIL import Image
 
 from build_tabular_characteristics import LABELS, SOURCE, analyze, check_layout, read_json, write_json
@@ -50,9 +51,10 @@ def selected_data():
             "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
             "figure_specification": {"publisher_guidance": "Elsevier general artwork guidance", "panels": ["A", "B"], "language": "English",
                                      "width_mm": 190, "height_mm": 85, "font": "Arial", "ordinary_text_pt": 7, "panel_label_pt": 9,
-                                     "png_dpi": 600, "tiff_dpi": 1000, "panel_b_scale": "linear",
+                                     "png_dpi": 600, "tiff_dpi": 1000, "panel_b_scale": "logarithmic (base 10)",
+                                     "panel_b_limits": [0.8, 128], "panel_b_ticks": [1, 2, 5, 10, 20, 50, 100],
                                      "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
-                                     "titles": "Panel headings omitted; figure title and statistical definitions are in a separate caption",
+                                     "titles": "Panel letters and short titles are centered below the horizontal axis labels; overall figure title and definitions remain in a separate caption",
                                      "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"},
             "statistics": stats}, retained
 
@@ -69,7 +71,7 @@ def draw(result, rows):
                          "svg.fonttype": "none", "pdf.fonttype": 42, "pdf.use14corefonts": False,
                          "svg.hashsalt": "stage1-journal-ab-model6-excluded"})
     fig, axes = plt.subplots(1, 2, figsize=(190 / 25.4, 85 / 25.4), layout="constrained")
-    fig.get_layout_engine().set(w_pad=4 / 72, h_pad=4 / 72, wspace=.08)
+    fig.get_layout_engine().set(w_pad=4 / 72, h_pad=4 / 72, wspace=.08, rect=(0, .10, 1, .90))
     scopes = result["statistics"]["scopes"]
     labels = ["All objects" if s["scope"] == "ALL" else LABELS[s["scope"]][1] for s in scopes]
     y = np.arange(len(scopes))
@@ -91,16 +93,35 @@ def draw(result, rows):
           medianprops={"color": INK, "linewidth": 1.0}, whiskerprops={"color": GRAY, "linewidth": .65},
           capprops={"color": GRAY, "linewidth": .65},
           flierprops={"marker": "o", "markersize": 1.3, "markeredgecolor": "none", "markerfacecolor": GRAY, "alpha": .28})
-    b.set_xlim(0, 112); b.set_xticks([0, 20, 40, 60, 80, 100])
-    b.set_xlabel("Number of attributes per object")
-    for ax, panel in zip(axes, ["A", "B"]):
+    b.set_xscale("log", base=10)
+    b.set_xlim(.8, 128); b.set_xticks([1, 2, 5, 10, 20, 50, 100], ["1", "2", "5", "10", "20", "50", "100"])
+    b.minorticks_off()
+    b.set_xlabel("Attributes per object (log scale)")
+    for ax in axes:
         ax.set_yticks(y, labels); ax.set_ylim(len(scopes) - .5, -.5)
         ax.grid(False)
         ax.tick_params(axis="y", length=0, pad=4)
         ax.tick_params(axis="x", length=3, width=.6)
-        ax.text(-.13, 1.015, panel, transform=ax.transAxes, ha="left", va="bottom", fontsize=9, fontweight="bold")
+    # Reserve a separate row below the x-axis labels, then center each panel
+    # identifier and short title beneath its own plotting area.
+    fig.canvas.draw()
+    footers = []
+    for ax, panel, title in zip(axes, ["A", "B"], ["Attribute occupancy", "Attribute-count distribution"]):
+        position = ax.get_position()
+        group = HPacker(children=[TextArea(panel, textprops={"fontsize": 9, "fontweight": "bold", "fontfamily": "Arial", "color": INK}),
+                                 TextArea(title, textprops={"fontsize": 7, "fontfamily": "Arial", "color": INK})],
+                        align="baseline", pad=0, sep=5)
+        footer = AnchoredOffsetbox(loc="center", child=group, frameon=False, pad=0, borderpad=0,
+                                   bbox_to_anchor=((position.x0 + position.x1) / 2, .035), bbox_transform=fig.transFigure)
+        footer.set_in_layout(False)
+        fig.add_artist(footer)
+        footers.append(footer)
     check_layout(fig)
     renderer = fig.canvas.get_renderer()
+    for footer, ax in zip(footers, axes):
+        box = footer.get_window_extent(renderer)
+        assert box.x0 >= 0 and box.y0 >= 0 and box.x1 <= fig.bbox.x1 and box.y1 <= fig.bbox.y1
+        assert box.y1 + 2 < ax.xaxis.label.get_window_extent(renderer).y0, "Panel title overlaps the horizontal axis label"
     all_texts = list(fig.texts)
     for ax in axes:
         all_texts += [ax.title, ax.xaxis.label, ax.yaxis.label] + ax.texts + ax.get_xticklabels() + ax.get_yticklabels()
@@ -142,8 +163,9 @@ def caption(result):
             "(A) Percentage of non-empty cells in a fixed-column representation. The All objects row uses the global union of 1,968 property paths; "
             "each class-specific row uses the property-path union observed within that class. Occupancy equals the observed non-empty key-value occurrences "
             "divided by the number of objects multiplied by the corresponding vocabulary size. Structural blanks can reflect inapplicable or unprovided attributes. "
-            "(B) Object-level distributions of non-empty attribute counts on a linear scale. Boxes indicate the interquartile range; central lines indicate medians. "
+            "(B) Object-level distributions of non-empty attribute counts, displayed on a logarithmic horizontal axis (base 10). Boxes indicate the interquartile range; central lines indicate medians. "
             "Whiskers extend to the most extreme observations within 1.5 interquartile ranges from each box. Points indicate observations beyond the whiskers; "
+            "quartiles and whiskers are calculated on the original count scale before plotting. "
             "overlapping points may coincide and do not denote data errors. Zero and false are counted as non-empty. "
             "The figure describes observed full property paths before comprehensive synonym harmonization; it is not a semantic-quality or model-performance assessment. "
             "Class-specific object counts and vocabulary sizes (N, P) are: "
@@ -165,7 +187,9 @@ def export(result):
         "Panels: A (occupancy) and B (attribute-count distribution); no panel C.\n"
         "Artwork size: 190 x 85 mm; RGB; Arial 7 pt ordinary text; white background.\n"
         "Panel labels: uppercase A/B, bold 9 pt; this is a layout choice, not a universal publisher rule.\n"
-        "No panel headings or background grids. Caption and denominators are outside the artwork. B uses a linear scale.\n"
+        "Panel letters and short titles are centered below the horizontal axis labels. No background grids.\n"
+        "Overall figure caption and denominators are outside the artwork. B uses a logarithmic base-10 axis, range 0.8-128, ticks 1/2/5/10/20/50/100.\n"
+        "Quartiles and Tukey whiskers use original counts, not log-transformed observations.\n"
         "Preferred submission master: PDF with embedded TrueType font subsets and vector marks.\n"
         "SVG retained for editing. Preview: 600 dpi PNG. Raster fallback: 1000 dpi LZW TIFF. RGB, no alpha, each below 10 MB.\n"
         "Elsevier ordinary-text size guidance is approximately 7 pt at final size; a rule of thumb, not a mandatory size for every journal.\n"

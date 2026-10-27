@@ -51,8 +51,8 @@
     },
     {
       "path": "experiments/component_attribute_analysis/build_journal_figure.py",
-      "bytes": 13419,
-      "sha256": "6cd9b6e74c034a1838d3af6703ca0dcb902ea4fe6d30a31e9134effc5e843af2"
+      "bytes": 15287,
+      "sha256": "6a236e18597e4c265aed9a01d2794fefe7f3989a2471d08f135c48e403626c78"
     },
     {
       "path": "experiments/component_attribute_analysis/build_tabular_characteristics.py",
@@ -181,38 +181,38 @@
     },
     {
       "path": "experiments/component_attribute_analysis/journal_figure_report.html",
-      "bytes": 4982,
-      "sha256": "29d3f4fc08151bb4861af60240a7e89f59c9e3cacf267e60a55a1c1fc58877d7"
+      "bytes": 5136,
+      "sha256": "e10abf375cdf5f3b4e33f0fdd95325f5b0f222c2476f9082277bebbdebd7d28b"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/Fig1.pdf",
-      "bytes": 55908,
-      "sha256": "5608d45532205f9274deead47dc486fb6f0fc6cc97ba879117b1e4b672fa8787"
+      "bytes": 60901,
+      "sha256": "b0df31bf2ca0ab0fb2e761f41b4c0d0807f1c1ee764f7aacdbfd9e6477f18bcb"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/Fig1.png",
-      "bytes": 170149,
-      "sha256": "fa6302e7c6761d59fcd17e3e3a48002da994e03a2d6ea4559927e5582ef2b633"
+      "bytes": 186971,
+      "sha256": "d8465ea0dabc474fe33f30b16da4d66844e59f4092dbcc92e53b7d2b77f09a5e"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/Fig1.svg",
-      "bytes": 2184838,
-      "sha256": "1435c0f9c0fec0349c8cab204c3c0d29aed9888f3dedca8b4d6c8428b2a31737"
+      "bytes": 2190540,
+      "sha256": "eaa0d62bf97e2d2440f02a20d21456f9fb0c63d8244dcf8477c5d0c7be1d7290"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/Fig1.tif",
-      "bytes": 1138376,
-      "sha256": "39cd7820a118b67df632e60cdbcec97a980f88931212e4506cfd54e4a91e712f"
+      "bytes": 1146108,
+      "sha256": "b2d518d0902fc0600a23ea6dde67835587c1ea92160d87fd2b7707f06a4af95e"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/Fig1_caption.txt",
-      "bytes": 1425,
-      "sha256": "d2a5a2e56d00db6ebc0f66c28af74b42353e7deb2bbf5175d606b030da822ed1"
+      "bytes": 1544,
+      "sha256": "a60ac272c5721656cbb8a077269946153e2ce78bf85e9ac58a5cbb6c35255adf"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/figure_specification.txt",
-      "bytes": 1185,
-      "sha256": "39f60a2fe119e04c0e28fcc3b7ea5772f8b5c748c15a9e7231e5c215e30a2ee8"
+      "bytes": 1397,
+      "sha256": "1f11dde074fa934c95a705d44aec28bcdc5a062d19c2e7ad222f7b5d50fd6b02"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/figure_statistics.csv",
@@ -221,13 +221,13 @@
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/figure_statistics.json",
-      "bytes": 13393,
-      "sha256": "606d54ece13394377764c39a04fabd9733ddb87d8fd6f83378d1b0e425286a19"
+      "bytes": 13610,
+      "sha256": "66a9dce6d5bb1070bc09f306ed02755f609a37230ff283f9a9e5e6c3a11d1f3d"
     },
     {
       "path": "experiments/component_attribute_analysis/journal_results/tabular_characteristics_report.html",
-      "bytes": 234141,
-      "sha256": "8a3a0c452f1d76d968e47037ba748c80dfd46ffbb5cc7f404a72868c04a517f8"
+      "bytes": 256842,
+      "sha256": "6c6376362f4df34ba1c6a4b716e400308327e3afe10269002c5574d8983a2e23"
     },
     {
       "path": "experiments/component_attribute_analysis/single_model_results/model_0/semantic_audit.html",
@@ -336,13 +336,13 @@
     },
     {
       "path": "output/pdf/Fig1.pdf",
-      "bytes": 55908,
-      "sha256": "5608d45532205f9274deead47dc486fb6f0fc6cc97ba879117b1e4b672fa8787"
+      "bytes": 60901,
+      "sha256": "b0df31bf2ca0ab0fb2e761f41b4c0d0807f1c1ee764f7aacdbfd9e6477f18bcb"
     },
     {
       "path": "README.md",
-      "bytes": 9496,
-      "sha256": "c197a7a73180baa75c58e38397903605644e2dd836618e5459889b038d2b4345"
+      "bytes": 9696,
+      "sha256": "8af23efe1faabbadef1516322b4d25ae391ec8f9e060a0e63f15091f77228358"
     },
     {
       "path": "requirements.txt",

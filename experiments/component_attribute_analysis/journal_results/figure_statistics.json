@@ -22,9 +22,22 @@
     "panel_label_pt": 9,
     "png_dpi": 600,
     "tiff_dpi": 1000,
-    "panel_b_scale": "linear",
+    "panel_b_scale": "logarithmic (base 10)",
+    "panel_b_limits": [
+      0.8,
+      128
+    ],
+    "panel_b_ticks": [
+      1,
+      2,
+      5,
+      10,
+      20,
+      50,
+      100
+    ],
     "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
-    "titles": "Panel headings omitted; figure title and statistical definitions are in a separate caption",
+    "titles": "Panel letters and short titles are centered below the horizontal axis labels; overall figure title and definitions remain in a separate caption",
     "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"
   },
   "statistics": {

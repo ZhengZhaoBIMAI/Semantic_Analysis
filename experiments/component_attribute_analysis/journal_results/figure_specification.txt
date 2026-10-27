@@ -2,7 +2,9 @@ Selected cohort: model_6 excluded; 214 models and 92,338 objects.
 Panels: A (occupancy) and B (attribute-count distribution); no panel C.
 Artwork size: 190 x 85 mm; RGB; Arial 7 pt ordinary text; white background.
 Panel labels: uppercase A/B, bold 9 pt; this is a layout choice, not a universal publisher rule.
-No panel headings or background grids. Caption and denominators are outside the artwork. B uses a linear scale.
+Panel letters and short titles are centered below the horizontal axis labels. No background grids.
+Overall figure caption and denominators are outside the artwork. B uses a logarithmic base-10 axis, range 0.8-128, ticks 1/2/5/10/20/50/100.
+Quartiles and Tukey whiskers use original counts, not log-transformed observations.
 Preferred submission master: PDF with embedded TrueType font subsets and vector marks.
 SVG retained for editing. Preview: 600 dpi PNG. Raster fallback: 1000 dpi LZW TIFF. RGB, no alpha, each below 10 MB.
 Elsevier ordinary-text size guidance is approximately 7 pt at final size; a rule of thumb, not a mandatory size for every journal.
