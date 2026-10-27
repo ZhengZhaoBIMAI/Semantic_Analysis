@@ -11,15 +11,15 @@
   "figure_specification": {
     "publisher_guidance": "Elsevier general artwork guidance",
     "panels": [
-      "A",
-      "B"
+      "(a)",
+      "(b)"
     ],
     "language": "English",
     "width_mm": 190,
     "height_mm": 85,
     "font": "Arial",
     "ordinary_text_pt": 7,
-    "panel_label_pt": 9,
+    "panel_label_pt": 7,
     "png_dpi": 600,
     "tiff_dpi": 1000,
     "panel_b_scale": "logarithmic (base 10)",
@@ -38,7 +38,7 @@
     ],
     "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
     "titles": "Panel letters and short titles are centered below the horizontal axis labels; overall figure title and definitions remain in a separate caption",
-    "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"
+    "panel_label_note": "Parenthesized lowercase labels and titles share Arial 7 pt regular typography"
   },
   "statistics": {
     "model_count": 214,

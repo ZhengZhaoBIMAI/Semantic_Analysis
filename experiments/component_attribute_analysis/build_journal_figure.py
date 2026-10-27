@@ -21,7 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import font_manager
-from matplotlib.offsetbox import AnchoredOffsetbox, HPacker, TextArea
+from matplotlib.offsetbox import AnchoredOffsetbox, TextArea
 from PIL import Image
 
 from build_tabular_characteristics import LABELS, SOURCE, analyze, check_layout, read_json, write_json
@@ -49,13 +49,13 @@ def selected_data():
     return {"snapshot_date": current["date"], "figure_date": "2026-10-28", "selected_cohort": "model_6 excluded",
             "data_stage": "observed full paths before comprehensive synonym harmonization",
             "input_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
-            "figure_specification": {"publisher_guidance": "Elsevier general artwork guidance", "panels": ["A", "B"], "language": "English",
-                                     "width_mm": 190, "height_mm": 85, "font": "Arial", "ordinary_text_pt": 7, "panel_label_pt": 9,
+            "figure_specification": {"publisher_guidance": "Elsevier general artwork guidance", "panels": ["(a)", "(b)"], "language": "English",
+                                     "width_mm": 190, "height_mm": 85, "font": "Arial", "ordinary_text_pt": 7, "panel_label_pt": 7,
                                      "png_dpi": 600, "tiff_dpi": 1000, "panel_b_scale": "logarithmic (base 10)",
                                      "panel_b_limits": [0.8, 128], "panel_b_ticks": [1, 2, 5, 10, 20, 50, 100],
                                      "vector": "PDF with embedded TrueType fonts; SVG retained as editable source",
                                      "titles": "Panel letters and short titles are centered below the horizontal axis labels; overall figure title and definitions remain in a separate caption",
-                                     "panel_label_note": "9 pt uppercase labels are a layout choice, not an Elsevier-wide mandatory size"},
+                                     "panel_label_note": "Parenthesized lowercase labels and titles share Arial 7 pt regular typography"},
             "statistics": stats}, retained
 
 
@@ -106,11 +106,9 @@ def draw(result, rows):
     # identifier and short title beneath its own plotting area.
     fig.canvas.draw()
     footers = []
-    for ax, panel, title in zip(axes, ["A", "B"], ["Attribute occupancy", "Attribute-count distribution"]):
+    for ax, panel, title in zip(axes, ["(a)", "(b)"], ["Attribute occupancy", "Attribute-count distribution"]):
         position = ax.get_position()
-        group = HPacker(children=[TextArea(panel, textprops={"fontsize": 9, "fontweight": "bold", "fontfamily": "Arial", "color": INK}),
-                                 TextArea(title, textprops={"fontsize": 7, "fontfamily": "Arial", "color": INK})],
-                        align="baseline", pad=0, sep=5)
+        group = TextArea(f"{panel} {title}", textprops={"fontsize": 7, "fontweight": "normal", "fontstyle": "normal", "fontfamily": "Arial", "color": INK})
         footer = AnchoredOffsetbox(loc="center", child=group, frameon=False, pad=0, borderpad=0,
                                    bbox_to_anchor=((position.x0 + position.x1) / 2, .035), bbox_transform=fig.transFigure)
         footer.set_in_layout(False)
@@ -134,7 +132,7 @@ def draw(result, rows):
     # Vector master: editable text, embedded TrueType subsets, no rasterization.
     PDF_OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(PDF_OUT / "Fig1.pdf", format="pdf", facecolor="white",
-                metadata={"Title": "BIM attribute sparsity and variability", "Subject": "Model_6-excluded cohort; panels A and B"})
+                metadata={"Title": "BIM attribute sparsity and variability", "Subject": "Model_6-excluded cohort; panels (a) and (b)"})
     shutil.copyfile(PDF_OUT / "Fig1.pdf", OUT / "Fig1.pdf")
     fig.savefig(OUT / "Fig1.svg", format="svg", facecolor="white", metadata={"Date": "2026-10-28"})
     # Render each raster export directly at its target resolution as RGB.
@@ -160,10 +158,10 @@ def caption(result):
     return (f"Fig. 1. Structural sparsity and attribute-count variability of BIM object semantics. "
             f"The analysis includes {stats['node_count']:,} graph objects from {stats['model_count']} models after excluding model_6; "
             "attribute vocabularies are recomputed from the retained models. "
-            "(A) Percentage of non-empty cells in a fixed-column representation. The All objects row uses the global union of 1,968 property paths; "
+            "(a) Percentage of non-empty cells in a fixed-column representation. The All objects row uses the global union of 1,968 property paths; "
             "each class-specific row uses the property-path union observed within that class. Occupancy equals the observed non-empty key-value occurrences "
             "divided by the number of objects multiplied by the corresponding vocabulary size. Structural blanks can reflect inapplicable or unprovided attributes. "
-            "(B) Object-level distributions of non-empty attribute counts, displayed on a logarithmic horizontal axis (base 10). Boxes indicate the interquartile range; central lines indicate medians. "
+            "(b) Object-level distributions of non-empty attribute counts, displayed on a logarithmic horizontal axis (base 10). Boxes indicate the interquartile range; central lines indicate medians. "
             "Whiskers extend to the most extreme observations within 1.5 interquartile ranges from each box. Points indicate observations beyond the whiskers; "
             "quartiles and whiskers are calculated on the original count scale before plotting. "
             "overlapping points may coincide and do not denote data errors. Zero and false are counted as non-empty. "
@@ -184,11 +182,11 @@ def export(result):
     (OUT / "Fig1_caption.txt").write_text(caption(result), encoding="utf-8", newline="\n")
     (OUT / "figure_specification.txt").write_text(
         "Selected cohort: model_6 excluded; 214 models and 92,338 objects.\n"
-        "Panels: A (occupancy) and B (attribute-count distribution); no panel C.\n"
+        "Panels: (a) occupancy and (b) attribute-count distribution.\n"
         "Artwork size: 190 x 85 mm; RGB; Arial 7 pt ordinary text; white background.\n"
-        "Panel labels: uppercase A/B, bold 9 pt; this is a layout choice, not a universal publisher rule.\n"
+        "Panel labels: parenthesized lowercase (a)/(b), Arial 7 pt regular, identical to their titles.\n"
         "Panel letters and short titles are centered below the horizontal axis labels. No background grids.\n"
-        "Overall figure caption and denominators are outside the artwork. B uses a logarithmic base-10 axis, range 0.8-128, ticks 1/2/5/10/20/50/100.\n"
+        "Overall figure caption and denominators are outside the artwork. Panel (b) uses a logarithmic base-10 axis, range 0.8-128, ticks 1/2/5/10/20/50/100.\n"
         "Quartiles and Tukey whiskers use original counts, not log-transformed observations.\n"
         "Preferred submission master: PDF with embedded TrueType font subsets and vector marks.\n"
         "SVG retained for editing. Preview: 600 dpi PNG. Raster fallback: 1000 dpi LZW TIFF. RGB, no alpha, each below 10 MB.\n"
@@ -202,7 +200,7 @@ def export(result):
 def render(result):
     template = (HERE / "journal_figure_report.html").read_text(encoding="utf-8")
     png = base64.b64encode((OUT / "Fig1.png").read_bytes()).decode("ascii")
-    template = template.replace("__FIGURE__", f'<a href="Fig1.png"><img class="figure" src="data:image/png;base64,{png}" alt="English panels A and B: attribute occupancy and attribute-count distributions after excluding model_6"></a>')
+    template = template.replace("__FIGURE__", f'<a href="Fig1.png"><img class="figure" src="data:image/png;base64,{png}" alt="English panels (a) and (b): attribute occupancy and attribute-count distributions after excluding model_6"></a>')
     rows = []
     for scope in result["statistics"]["scopes"]:
         label = "All objects" if scope["scope"] == "ALL" else LABELS[scope["scope"]][1]
@@ -220,7 +218,7 @@ def main():
     draw(result, rows)
     export(result)
     render(result)
-    print("PASS: model_6 excluded; English A/B; Elsevier general style; 190 x 85 mm; Arial 7 pt / 9 pt panel labels; vector PDF; 600 dpi PNG; 1000 dpi TIFF.")
+    print("PASS: model_6 excluded; English (a)/(b); labels and titles share Arial 7 pt regular; vector PDF; 600 dpi PNG; 1000 dpi TIFF.")
 
 
 if __name__ == "__main__":

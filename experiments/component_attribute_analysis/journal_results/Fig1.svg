@@ -15603,16 +15603,10 @@ L 534.582677 189.379612
    </g>
   </g>
   <g id="text_40">
-   <text style="font-weight: 700; font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="112.927343" y="234.84478" transform="rotate(-0 112.927343 234.84478)">A</text>
+   <text style="font-size: 7px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="113.620233" y="234.323061" transform="rotate(-0 113.620233 234.323061)">(a) Attribute occupancy</text>
   </g>
   <g id="text_41">
-   <text style="font-size: 7px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="124.42703" y="234.84478" transform="rotate(-0 124.42703 234.84478)">Attribute occupancy</text>
-  </g>
-  <g id="text_42">
-   <text style="font-weight: 700; font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="379.070569" y="234.84478" transform="rotate(-0 379.070569 234.84478)">B</text>
-  </g>
-  <g id="text_43">
-   <text style="font-size: 7px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="390.570257" y="234.84478" transform="rotate(-0 390.570257 234.84478)">Attribute-count distribution</text>
+   <text style="font-size: 7px; font-family: 'Arial'; text-anchor: start; fill: #202020" x="379.76346" y="234.323061" transform="rotate(-0 379.76346 234.323061)">(b) Attribute-count distribution</text>
   </g>
  </g>
  <defs>

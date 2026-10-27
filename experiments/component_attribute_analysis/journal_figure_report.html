@@ -6,14 +6,14 @@
 <header><nav><a href="https://zhengzhaobimai.github.io/Semantic_Analysis/">综合报告</a><a href="#caption">英文图注</a><a href="#downloads">下载文件</a></nav>
 <h1>BIM Semantic：Elsevier 英文双面板图</h1>
 <p class="meta">已排除 model_6 · 214 个模型 · 92,338 个构件 · 全局字段并集 1,968 项</p>
-<p>按 Elsevier 通用绘图指南整理，只保留 A、B 两个面板，图内全部为英文。A/B 标识与短标题居中放在各自横轴标签下方；没有背景网格，详细说明放在独立图注中。B 图恢复为对数坐标，以展开低值区间。</p></header>
+<p>按 Elsevier 通用绘图指南整理，只保留 (a)、(b) 两个面板，图内全部为英文。编号与短标题统一使用 Arial 7 pt 常规体，居中放在各自横轴标签下方；没有背景网格，详细说明放在独立图注中。(b) 图采用对数坐标，以展开低值区间。</p></header>
 <section><h2>当前图稿</h2>__FIGURE__
 <p><a href="Fig1.pdf" download>推荐投稿：矢量 PDF · 已嵌入字体</a>　<a href="Fig1.tif" download>TIFF · 1000 dpi · RGB · LZW</a>　<a href="Fig1.png" download>预览 PNG · 600 dpi</a>　<a href="Fig1.svg" download>编辑源文件 SVG</a></p>
-<p class="note">点击图可查看原图。尺寸 190 × 85 mm；Arial 普通文字与短标题 7 pt，A/B 为 9 pt 粗体。底部短标题与横轴标签分成两行，避免重叠。Elsevier 将普通文字最终约 7 pt 作为经验建议，9 pt 面板字母及标题位置是本图的版式选择。PDF 已核验字体嵌入并完成独立渲染检查。</p>
+<p class="note">点击图可查看原图。尺寸 190 × 85 mm；编号 (a)/(b) 与短标题均为 Arial 7 pt 常规体，同一行、同一字号、相同字重。底部标题与横轴标签分成两行，避免重叠。PDF 已核验字体嵌入并完成独立渲染检查。</p>
 </section>
 <section><h2>两个面板如何理解？</h2>
-<p><strong>A — Attribute occupancy：</strong>每条表示相应固定列表格中非空单元格的比例。全局按 1,968 个字段建表，各构件类别使用本类别的字段并集；全局非空比例为 1.01%。空白可能是不适用或未提供，不等于数据错误。</p>
-<p><strong>B — Attribute-count distribution：</strong>每个箱体汇总相应类别全部构件的非空属性数量。箱体为中央 50%，中线为中位数；须采用标准 1.5 倍四分位距规则，须外点表示实际观测，不直接代表错误。横轴采用对数尺度，刻度为 1、2、5、10、20、50、100，范围覆盖全部观测。四分位数与须仍根据原始计数计算，再映射到对数坐标。</p>
+<p><strong>(a) Attribute occupancy：</strong>每条表示相应固定列表格中非空单元格的比例。全局按 1,968 个字段建表，各构件类别使用本类别的字段并集；全局非空比例为 1.01%。空白可能是不适用或未提供，不等于数据错误。</p>
+<p><strong>(b) Attribute-count distribution：</strong>每个箱体汇总相应类别全部构件的非空属性数量。箱体为中央 50%，中线为中位数；须采用标准 1.5 倍四分位距规则，须外点表示实际观测，不直接代表错误。横轴采用对数尺度，刻度为 1、2、5、10、20、50、100，范围覆盖全部观测。四分位数与须仍根据原始计数计算，再映射到对数坐标。</p>
 <div class="tablewrap"><table><thead><tr><th>Scope</th><th>Objects</th><th>Attributes</th><th>Non-empty cells</th><th>Median count</th><th>Q1-Q3</th></tr></thead><tbody>__ROWS__</tbody></table></div>
 <p class="note">统计仍基于当前审计快照的非空完整字段路径，未全面统一同义字段，名称、引用和明确占位文本仍计入；0 和 false 保留。不能将图稿标作最终清洗后的 WP1 数据。排除 model_6 后已重新确定字段并集。</p>
 </section>
